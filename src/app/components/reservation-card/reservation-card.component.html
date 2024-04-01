@@ -1,0 +1,30 @@
+<mat-card class="reservation-card__card">
+  <mat-card-header>
+    <mat-card-title> Reservation details </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    @if (!disabled) { @if (reservationData) {
+    <h4>First name</h4>
+    <p>{{ reservationData.firstName }}</p>
+    <h4>Second name</h4>
+    <p>{{ reservationData.secondName }}</p>
+    <h4>Email</h4>
+    <p>{{ reservationData.email | censorMail }}</p>
+    <h4>Payment method</h4>
+    <p>{{ reservationData.paymentMethod }}</p>
+    <h4>Reservation date</h4>
+    <p>
+      {{ reservationData.date | customDate }}
+    </p>
+    <h4>Additional information</h4>
+    <p>{{ reservationData.additionalInformation }}</p>
+    } @else {
+    <p>No booking at this time</p>
+    <button mat-raised-button (click)="handleReservationBook()">
+      Book your reservation
+    </button>
+    } } @else {
+    <p>Please select date and hour first</p>
+    }
+  </mat-card-content>
+</mat-card>

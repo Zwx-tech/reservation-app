@@ -1,0 +1,20 @@
+<mat-card class="hour-picker__card">
+  <mat-card-header>
+    <mat-card-title>Pick reservation hour</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="hour-picker__buttons">
+    @if (!disabled) { @for (hour of combinedHours$ | async; track hour) {
+    <button
+      mat-raised-button
+      [class]="hour.status ? 'reservation-visible' : ''"
+      (click)="hourButtonClicked(hour)"
+    >
+      {{ hour.element }}
+    </button>
+    } @empty {
+    <p>:0</p>
+    } } @else {
+    <p>Please select a date first</p>
+    }
+  </mat-card-content>
+</mat-card>

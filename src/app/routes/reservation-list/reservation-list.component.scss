@@ -1,0 +1,16 @@
+.reservation-list__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 1rem;
+    
+    .hour-picker, .calendar, .reservation-card {
+        height: clamp(30rem, 80vh, 50rem);
+    }
+    
+    .calendar {
+        aspect-ratio: 20 / 21;
+    }
+}
+

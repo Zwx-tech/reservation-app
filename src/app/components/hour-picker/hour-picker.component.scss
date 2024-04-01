@@ -1,0 +1,15 @@
+.hour-picker__card{
+    height: 100%;
+    width: 12rem;
+    
+    .mat-mdc-card-title {
+        margin-bottom: 2rem;
+    }
+
+    .hour-picker__buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 1rem
+    }
+}

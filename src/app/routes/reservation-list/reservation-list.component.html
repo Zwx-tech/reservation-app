@@ -1,0 +1,19 @@
+<div class="reservation-list__wrapper">
+  <app-calendar
+    [(selected)]="selectedDate"
+    (selectedChange)="selectedDateChange()"
+    [reservedDates]="reservedDates"
+    class="calendar"
+  ></app-calendar>
+  <app-hour-picker
+    class="hour-picker"
+    [reservedHours]="reservedHours"
+    (selectedHourChange)="selectedHourChange($event)"
+  ></app-hour-picker>
+  <app-reservation-card
+    class="reservation-card"
+    [reservationData]="selectedReservation"
+    (bookEvent)="bookNewReservation()"
+  >
+  </app-reservation-card>
+</div>

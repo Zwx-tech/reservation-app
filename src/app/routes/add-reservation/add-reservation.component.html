@@ -1,0 +1,5 @@
+<h2>Reservation form</h2>
+<h3>Date: {{ this.reservationDate | customDate }}</h3>
+<app-reservation-form
+  (formSubmit)="handleFormSubmit($event)"
+></app-reservation-form>
