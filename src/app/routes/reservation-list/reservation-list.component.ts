@@ -35,12 +35,16 @@ export class ReservationListComponent {
   ngAfterViewInit() {
     const today = new Date();
     this.refreshReservations(today.getMonth(), today.getFullYear());
+    this.calendar.calendarViewChange.subscribe(({ month, year }) => {
+      this.refreshReservations(month, year);
+    });
   }
 
   refreshReservations(month: number, year: number) {
     this.reservationService
       .getReservations({ month, year })
       .subscribe((reservations) => {
+        console.log(reservations);
         this.allReservations = reservations;
         this.reservedDates = reservations.map(
           (reservation) => reservation.date
@@ -48,7 +52,7 @@ export class ReservationListComponent {
       });
   }
 
-  selectedDateChange() {
+  selectedDateChange(e: any) {
     // reset everything
     this.reservationCard.disabled = true;
     this.selectedHour = null;
@@ -63,11 +67,11 @@ export class ReservationListComponent {
       this.selectedDate.getFullYear()
     );
     this.hourPicker.disabled = false;
-
     // adjust reservedHours array
     this.reservedHours = this.reservedDates
       .filter((date) => date.day == this.selectedDate?.getDate())
       .map((date) => date.hour);
+    console.log(this.reservedHours);
   }
 
   getReservationByDate(reservationDate: Date, reservationHour: string) {

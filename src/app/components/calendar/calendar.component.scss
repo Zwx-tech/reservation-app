@@ -1,0 +1,51 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$secondary: #005cbb;
+$accent: #faca4d;
+.calendar__wrapper {
+    width: fit-content;
+}
+
+.calendar-header {
+    padding: 1rem;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.calendar-body {
+    $day-size: 6rem;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: fit-content;
+    padding: .5rem;
+    gap: calc($day-size * .2);
+    .calendar-body__day {
+        width: calc($day-size * .8);
+        height: calc($day-size * .8);
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        font-weight: 200;
+        // cursor: pointer;
+    }
+    
+    .reserved {
+        background-color: $accent;
+    }
+
+    .selected {
+        background-color: $secondary;
+        color: #fff;
+    }
+
+
+    .header {
+        font-weight: 400;
+    }
+}

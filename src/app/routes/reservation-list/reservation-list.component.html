@@ -1,7 +1,7 @@
 <div class="reservation-list__wrapper">
   <app-calendar
     [(selected)]="selectedDate"
-    (selectedChange)="selectedDateChange()"
+    (selectedChange)="selectedDateChange($event)"
     [reservedDates]="reservedDates"
     class="calendar"
   ></app-calendar>

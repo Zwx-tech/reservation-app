@@ -1,6 +1,48 @@
-<mat-card class="demo-inline-calendar-card calendar__wrapper">
-  <mat-calendar
-    [(selected)]="selected"
-    (selectedChange)="updateSelected()"
-  ></mat-calendar>
+<mat-card class="calendar__wrapper">
+  <div class="calendar-header">
+    <div class="calendar__view-display">
+      @if(_selectedMonth != null) {
+      {{ _selectedYear }} / {{ _selectedMonth + 1 }}
+      }
+    </div>
+    <div class="calendar__controls-wrapper">
+      <button
+        mat-icon-button
+        aria-label="Example icon button with a vertical three dot icon"
+        (click)="handleMonthChange(-1)"
+      >
+        <mat-icon> chevron_left </mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        aria-label="Example icon button with a vertical three dot icon"
+        (click)="handleMonthChange(1)"
+      >
+        <mat-icon> chevron_right </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="calendar-body">
+    <div class="calendar-body__day header">Sun</div>
+    <div class="calendar-body__day header">Mon</div>
+    <div class="calendar-body__day header">Tue</div>
+    <div class="calendar-body__day header">Wen</div>
+    <div class="calendar-body__day header">Thu</div>
+    <div class="calendar-body__day header">Fri</div>
+    <div class="calendar-body__day header">Sat</div>
+    @for(day of dayTable; track $index) { @if(day == null) {
+    <div class="calendar-body__day"></div>
+    } @else {
+    <button
+      class="calendar-body__day"
+      [class.selected]="day == selected"
+      [class.reserved]="isReservedDate(day.getDate())"
+      (click)="updateSelected(day)"
+      mat-button
+    >
+      {{ day.getDate() }}
+    </button>
+
+    } }
+  </div>
 </mat-card>

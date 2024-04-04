@@ -1,68 +1,109 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-} from '@angular/core';
-import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { ReservationService } from '../../services/reservation.service';
+import { merge, ReplaySubject } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [MatDatepickerModule, MatCardModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
 })
 export class CalendarComponent {
   @Input()
   selected: Date | null = null;
+
   @Output()
   selectedChange = new EventEmitter<Date>();
 
-  @Input() set reservedDates(reservationDates: ReservationDate[]) {
-    this.colorReservedDates(reservationDates);
+  @Input() set viewMonth(value: number) {
+    this._selectedMonth = value;
+    this._selectedMonth$.next(value);
   }
 
-  @ViewChild(MatCalendar) calendar!: MatCalendar<Date>;
-
-  constructor(private reservationService: ReservationService) {}
-
-  ngAfterViewInit() {
-    // this.calendar.monthSelected.subscribe((data) => {
-    //   console.log(data);
-    // });
-    // this.calendar.monthView.selectedChange.subscribe((data) => {
-    //   console.log(data);
-    // });
-    this.calendar.monthView.ngOnChanges = () => {
-      console.log(this.calendar.monthView._monthLabel);
-    };
+  @Input() set viewYear(value: number) {
+    this._selectedYear = value;
+    this._selectedYear$.next(value);
   }
 
-  updateSelected() {
-    if (this.selected) {
-      this.selectedChange.emit(this.selected);
+  calendarViewChange = new ReplaySubject<{ month: number; year: number }>();
+
+  _selectedMonth: number | null = null;
+  _selectedYear: number | null = null;
+  private _selectedMonth$ = new ReplaySubject<number>();
+  private _selectedYear$ = new ReplaySubject<number>();
+
+  dayTable: Array<Date | null> = [];
+
+  @Input()
+  reservedDates: ReservationDate[] = [];
+
+  constructor() {}
+
+  ngOnInit() {
+    merge(this._selectedMonth$, this._selectedYear$).subscribe(() => {
+      this.generateDayTable();
+    });
+
+    //* If date wasn't passed as parameter, set current view to todays vi
+    if (this._selectedMonth === null || this._selectedYear === null) {
+      this.setTodaysView();
     }
   }
 
-  //* I am aware that this is probably one of worst ways to override Angular Material component
-  //* but i couldn't think of any better way of doing so
-  // TODO find better way to override colors of specific dates
-  colorReservedDates(reservationDates: ReservationDate[]) {
-    // select all buttons that represents days
-    const calendarCells = document.querySelectorAll('.mat-calendar-body-cell');
-    // extract all reserved days for given month
-    const filledDates = new Set(
-      reservationDates.map((reservation) => reservation.day)
-    );
-    // clear all calendar dates
-    calendarCells.forEach((c) => (c.className = 'mat-calendar-body-cell'));
-    // add css class to all reserved dates
-    for (const day of filledDates) {
-      calendarCells[day - 1].classList.add('reservation-visible');
+  setTodaysView() {
+    this._selectedMonth = new Date().getMonth();
+    this._selectedYear = new Date().getFullYear();
+    this._selectedMonth$.next(this._selectedMonth);
+    this._selectedYear$.next(this._selectedYear);
+  }
+
+  generateDayTable() {
+    if (this._selectedYear === null || this._selectedMonth === null) return;
+
+    //* if we pass 0 as day parameter getDate func will return last day of that previous month
+    //* this also will work for december since both december and january has 31 days
+    const daysInMonth = new Date(
+      this._selectedYear,
+      this._selectedMonth + 1,
+      0
+    ).getDate();
+
+    //* then we have to calc the offset, so days of the week will be displayed correctly
+    const tableDateWeekOffset = new Date(
+      this._selectedYear,
+      this._selectedMonth,
+      1
+    ).getDay();
+    //* and we fill table with offset days set to null
+    //* they will render as blank days
+    this.dayTable = Array(tableDateWeekOffset).map((_) => null);
+
+    //* append all days to helper list
+    for (let dayOfMonth = 1; dayOfMonth <= daysInMonth; dayOfMonth++) {
+      this.dayTable.push(
+        new Date(this._selectedYear, this._selectedMonth, dayOfMonth)
+      );
     }
+  }
+
+  isReservedDate(day: number) {
+    return this.reservedDates.some((d) => d.day === day);
+  }
+
+  handleMonthChange(amount: number) {
+    if (this._selectedMonth === null || this._selectedYear === null) return;
+    this.viewMonth = (this._selectedMonth + 12 + amount) % 12;
+    this.calendarViewChange.next({
+      month: this._selectedMonth,
+      year: this._selectedYear,
+    });
+  }
+
+  updateSelected(day: Date) {
+    this.selected = day;
+    this.selectedChange.emit(this.selected);
   }
 }

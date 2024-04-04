@@ -3,7 +3,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.hour-picker__buttons .reservation-visible,
-.reservation-visible > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected)  {
+.hour-picker__buttons .reservation-visible {
     background-color: #faca4d !important;
 }
