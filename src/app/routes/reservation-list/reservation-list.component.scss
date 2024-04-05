@@ -8,7 +8,15 @@
     .hour-picker, .calendar, .reservation-card {
         height: clamp(30rem, 90vh, 60rem);
     }
-    
+
+    .hour-picker {
+        aspect-ratio: 5 / 12;
+    }
+
+    .reservation-card {
+        aspect-ratio: 5 / 12;
+    }
+
     .calendar {
         aspect-ratio: 18 / 21;
     }

@@ -2,3 +2,13 @@ h2, h3 {
     font-weight: 500;
     padding-left: 1rem;
 }
+.add-reservation__wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    .reservation-card {
+        width: fit-content;
+        display: block;
+    }
+}

@@ -1,7 +1,3 @@
-@use '@angular/material' as mat;
-
-@include mat.core();
-
 $secondary: #b667f4;
 $accent: #faca4d;
 
@@ -49,9 +45,7 @@ $accent: #faca4d;
     
     .loader {
         grid-column: span 7;
-        grid-row: span 4;
-
-        
+        grid-row: span 4;        
     }
 
     .loader > * {
@@ -81,6 +75,10 @@ $accent: #faca4d;
     .reserved > .calendar-body__day {
         background-color: $accent;
         border: $accent;
+    }
+
+    .selected > .calendar-body__day {
+        
     }
 
     .header {

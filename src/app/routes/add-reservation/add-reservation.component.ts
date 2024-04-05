@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ReservationFormComponent } from '../../components/reservation-form/reservation-form.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CustomDatePipe } from '../../pipes/custom-date.pipe';
 import { ReservationService } from '../../services/reservation.service';
-
+import { CardModule } from 'primeng/card';
 @Component({
   selector: 'app-add-reservation',
   standalone: true,
-  imports: [ReservationFormComponent, CustomDatePipe],
+  imports: [ReservationFormComponent, CustomDatePipe, CardModule],
   templateUrl: './add-reservation.component.html',
   styleUrl: './add-reservation.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class AddReservationComponent {
   constructor(

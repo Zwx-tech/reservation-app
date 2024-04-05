@@ -48,6 +48,7 @@
     <p-button
       styleClass="calendar-body__day secondary"
       [class.reserved]="isReservedDate(day.getDate())"
+      [class.selected]="day == selected"
       severity="secondary"
       (click)="updateSelected(day)"
     >

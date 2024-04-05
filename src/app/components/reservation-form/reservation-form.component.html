@@ -4,71 +4,123 @@
   (ngSubmit)="handleFormSubmit()"
 >
   <!-- FirstName field-->
-  <h6>First name</h6>
-  <mat-form-field>
+  <h6>Personal info</h6>
+  <span class="p-float-label">
+    <input pInputText id="firstName" formControlName="firstName" />
+    <label for="firstName">First name</label>
+  </span>
+  <!-- <mat-form-field>
     <mat-label>Enter your first name</mat-label>
     <input formControlName="firstName" matInput placeholder="John" required />
     @if (reservationForm.controls.firstName.invalid) {
-    <mat-error>This field is required</mat-error>
+      <mat-error>This field is required</mat-error>
     }
-  </mat-form-field>
+  </mat-form-field> -->
   <!-- SecondName field-->
-  <h6>Second name</h6>
-  <mat-form-field>
+  <!-- <mat-form-field>
     <mat-label>Enter your second name</mat-label>
     <input formControlName="secondName" matInput placeholder="Doe" required />
     @if (reservationForm.controls.secondName.invalid) {
-    <mat-error>This field is required</mat-error>
+      <mat-error>This field is required</mat-error>
     }
-  </mat-form-field>
+  </mat-form-field> -->
+  <span class="p-float-label">
+    <input pInputText id="secondName" formControlName="secondName" />
+    <label for="secondName">Second name</label>
+  </span>
   <!-- Email field-->
-  <h6>Email</h6>
-  <mat-form-field>
+  <!-- <mat-form-field>
     <mat-label>Enter your email</mat-label>
     <input
-      formControlName="email"
-      matInput
-      placeholder="john@example.com"
-      (blur)="updateEmailErrorMessage()"
-      required
+    formControlName="email"
+    matInput
+    placeholder="john@example.com"
+    (blur)="updateEmailErrorMessage()"
+    required
     />
     @if (email.invalid) {
-    <mat-error>{{ emailErrorMessage }}</mat-error>
+      <mat-error>{{ emailErrorMessage }}</mat-error>
     }
-  </mat-form-field>
+  </mat-form-field> -->
   <!-- DiscountCode -->
+  <span class="p-float-label">
+    <input pInputText id="email" formControlName="email" />
+    <label for="email">Email</label>
+  </span>
   <h6>Payment method</h6>
-  <mat-form-field>
+  <!-- <mat-form-field>
     <mat-label>Please specify payment method</mat-label>
     <mat-select formControlName="paymentMethod">
       <mat-option value="cash">Cash</mat-option>
       <mat-option value="card">Card</mat-option>
     </mat-select>
     @if (reservationForm.controls.paymentMethod.invalid) {
-    <mat-error>This field is required</mat-error>
+      <mat-error>This field is required</mat-error>
     }
-  </mat-form-field>
+  </mat-form-field> -->
+  <p-selectButton
+    [options]="paymentMethod"
+    formControlName="paymentMethod"
+    optionLabel="label"
+    required
+  ></p-selectButton>
+
   <h6>Discount code</h6>
-  <div class="discount-field">
+  <!-- <div class="discount-field">
     <mat-checkbox
-      [formControl]="discountCodeEnabled"
-      (change)="updateDiscountField()"
+    [formControl]="discountCodeEnabled"
+    (change)="updateDiscountField()"
     ></mat-checkbox>
     <mat-form-field>
       <mat-label>Discount code</mat-label>
       <input
-        formControlName="discountCode"
-        matInput
-        placeholder="discount code"
+      formControlName="discountCode"
+      matInput
+      placeholder="discount code"
       />
     </mat-form-field>
+  </div> -->
+  <div class="discount-field">
+    <p-checkbox
+      class="discount-checkbox"
+      [formControl]="discountCodeEnabled"
+      (onChange)="updateDiscountField()"
+      [binary]="true"
+      inputId="binary"
+    ></p-checkbox>
+    <input
+      type="text"
+      pInputText
+      formControlName="discountCode"
+      placeholder="Enter a discount"
+    />
   </div>
   <h6>Additional information</h6>
-  <mat-form-field>
+  <!-- <mat-form-field>
     <mat-label>Additional information</mat-label>
     <textarea matInput formControlName="additionalInformation"> </textarea>
-  </mat-form-field>
-  <button [disabled]="reservationForm.invalid" mat-flat-button type="submit">
+  </mat-form-field> -->
+
+  <span class="p-float-label">
+    <textarea
+      id="additionalInformation"
+      rows="5"
+      cols="30"
+      pInputTextarea
+      formControlName="additionalInformation"
+    ></textarea>
+    <label for="additionalInformation">Additional information</label>
+  </span>
+
+  <!-- <button [disabled]="reservationForm.invalid" type="submit">
     Book reservation
-  </button>
+  </button> -->
+  <p-button
+    severity="secondary"
+    class="secondary"
+    [disabled]="reservationForm.invalid"
+    type="submit"
+  >
+    Book reservation
+  </p-button>
 </form>

@@ -6,27 +6,26 @@ import {
   ReactiveFormsModule,
   FormGroup,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { InputTextModule } from 'primeng/inputtext';
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
+import { CardModule } from 'primeng/card';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-reservation-form',
   standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
+    InputTextModule,
+    CardModule,
+    SelectButtonModule,
+    CheckboxModule,
+    InputTextareaModule,
+    ButtonModule,
   ],
   templateUrl: './reservation-form.component.html',
   styleUrl: './reservation-form.component.scss',
@@ -53,6 +52,11 @@ export class ReservationFormComponent {
   });
 
   emailErrorMessage = '';
+
+  paymentMethod = [
+    { label: 'cash', value: 'cash' },
+    { label: 'card', value: 'card' },
+  ];
 
   constructor() {
     //* add event that will handle email input validation

@@ -32,9 +32,12 @@ export class ReservationListComponent {
     private router: Router
   ) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
     const today = new Date();
     this.refreshReservations(today.getMonth(), today.getFullYear());
+  }
+
+  ngAfterViewInit() {
     this.calendar.calendarViewChange.subscribe(({ month, year }) => {
       this.refreshReservations(month, year);
     });
