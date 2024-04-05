@@ -5,23 +5,16 @@ import {
   EventEmitter,
   ViewEncapsulation,
 } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { merge, ReplaySubject } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [
-    CardModule,
-    MatIconModule,
-    ButtonModule,
-    CalendarModule,
-    ReactiveFormsModule,
-    FormsModule,
-  ],
+  imports: [CardModule, ButtonModule, CalendarModule, ProgressSpinnerModule],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -45,7 +38,6 @@ export class CalendarComponent {
 
   calendarViewChange = new ReplaySubject<{ month: number; year: number }>();
 
-  yearDate: Date | undefined;
   _selectedMonth: number | null = null;
   _selectedYear: number | null = null;
   private _selectedMonth$ = new ReplaySubject<number>();
@@ -53,8 +45,21 @@ export class CalendarComponent {
 
   dayTable: Array<Date | null> = [];
 
+  loading: boolean = true;
+
+  private _reservedDates: ReservationDate[] = [];
+
   @Input()
-  reservedDates: ReservationDate[] = [];
+  set reservedDates(reservedDates: ReservationDate[]) {
+    setTimeout(() => {
+      this.loading = false;
+    }, 100);
+    this._reservedDates = reservedDates;
+  }
+
+  get reservedDates() {
+    return this._reservedDates;
+  }
 
   constructor() {}
 
@@ -111,6 +116,8 @@ export class CalendarComponent {
 
   handleMonthChange(amount: number) {
     if (this._selectedMonth === null || this._selectedYear === null) return;
+    if (this._selectedMonth + amount >= 12) this._selectedYear++;
+    if (this._selectedMonth + amount < 0) this._selectedYear--;
     this.viewMonth = (this._selectedMonth + 12 + amount) % 12;
     this.calendarViewChange.next({
       month: this._selectedMonth,

@@ -13,10 +13,19 @@
     body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
+body {
+    background-color: #fefefe;
+}
+
 .p-button.secondary {
     background-color: #ddd;
     border-color: #ddd;
     color: #555;
+    transition: filter linear .2s;
+}
+
+.p-button.secondary:hover {
+    filter: brightness(105%);
 }
 
 .h-full {

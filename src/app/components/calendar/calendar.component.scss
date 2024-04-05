@@ -16,7 +16,12 @@ $accent: #faca4d;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    
+    .calendar__controls-wrapper {
+        display: flex;
+        gap: 1rem;
+    }
+    
     .control-picker {
         position: relative;
         width: 10rem;
@@ -39,6 +44,21 @@ $accent: #faca4d;
     
 }
 
+.calendar-body.loading {
+    place-items: center;
+    
+    .loader {
+        grid-column: span 7;
+        grid-row: span 4;
+
+        
+    }
+
+    .loader > * {
+        width: 4rem;
+        aspect-ratio: 1 / 1;
+    }
+}
 
 .calendar-body {
     $day-size: 6vh;
@@ -47,21 +67,21 @@ $accent: #faca4d;
     grid-template-columns: repeat(7, 1fr);
     padding: .5rem;
     gap: calc($day-size * .2);
+    
+    
     .calendar-body__day {
         width: 100%;
-        aspect-ratio: 1 / 1 !important ;
+        aspect-ratio: 1 / 1 !important;
         display: grid;
         place-items: center;
         border-radius: .9rem;
         font-weight: 400;
-        // cursor: pointer;
     }
 
     .reserved > .calendar-body__day {
         background-color: $accent;
         border: $accent;
     }
-
 
     .header {
         font-weight: 400;

@@ -10,7 +10,7 @@
           [readonlyInput]="true"
         ></p-calendar>
         <span class="month-year__preview">
-          {{ _selectedMonth }} / {{ _selectedYear }}
+          {{ _selectedMonth + 1 }} / {{ _selectedYear }}
         </span>
       </div>
       }
@@ -34,7 +34,7 @@
       </p-button>
     </div>
   </div>
-  <div class="calendar-body">
+  <div class="calendar-body" [class.loading]="loading">
     <div class="calendar-body__day header">Sun</div>
     <div class="calendar-body__day header">Mon</div>
     <div class="calendar-body__day header">Tue</div>
@@ -42,7 +42,7 @@
     <div class="calendar-body__day header">Thu</div>
     <div class="calendar-body__day header">Fri</div>
     <div class="calendar-body__day header">Sat</div>
-    @for(day of dayTable; track $index) { @if(day == null) {
+    @if(!loading) { @for(day of dayTable; track $index) { @if(day == null) {
     <div class="calendar-body__day"></div>
     } @else {
     <p-button
@@ -54,6 +54,12 @@
       {{ day.getDate() }}
     </p-button>
 
-    } }
+    } } } @else {
+    <p-progressSpinner
+      class="loader"
+      strokeWidth="5"
+      ariaLabel="loading"
+    ></p-progressSpinner>
+    }
   </div>
 </p-card>
