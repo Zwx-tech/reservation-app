@@ -1,15 +1,24 @@
+// @use '/themes/variables';
+
 .hour-picker__card{
     height: 100%;
     width: 12rem;
-    
-    .mat-mdc-card-title {
-        margin-bottom: 2rem;
-    }
+
 
     .hour-picker__buttons {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        gap: 1rem
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .hour-picker__buttons .p-button {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    .reservation-visible .p-button{
+        background-color: #faca4d;
     }
 }

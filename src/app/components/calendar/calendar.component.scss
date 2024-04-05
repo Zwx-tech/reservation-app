@@ -2,11 +2,11 @@
 
 @include mat.core();
 
-$my-primary: mat.define-palette(mat.$indigo-palette, 500);
 $secondary: #b667f4;
 $accent: #faca4d;
+
 .calendar__wrapper {
-    width: fit-content;
+    width: 100%;
     height: 100%;
 }
 

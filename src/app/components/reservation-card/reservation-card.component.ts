@@ -1,13 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { CustomDatePipe } from '../../pipes/custom-date.pipe';
 import { CensorMailPipe } from '../../pipes/censor-mail.pipe';
-
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 @Component({
   selector: 'app-reservation-card',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, CustomDatePipe, CensorMailPipe],
+  imports: [CardModule, ButtonModule, CustomDatePipe, CensorMailPipe],
   templateUrl: './reservation-card.component.html',
   styleUrl: './reservation-card.component.scss',
 })

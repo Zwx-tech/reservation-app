@@ -1,6 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+} from '@angular/core';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
@@ -8,9 +14,10 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-hour-picker',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, AsyncPipe],
+  imports: [CardModule, ButtonModule, AsyncPipe],
   templateUrl: './hour-picker.component.html',
   styleUrl: './hour-picker.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class HourPickerComponent {
   @Input() set reservedHours(_reservedHours: string[]) {

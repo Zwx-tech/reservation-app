@@ -1,4 +1,4 @@
-<p-card class="calendar__wrapper" header="Calendar">
+<p-card class="calendar__wrapper h-full" header="Calendar">
   <div class="calendar-header">
     <div class="calendar__view-display">
       @if(_selectedMonth != null) {
@@ -22,7 +22,7 @@
         aria-label="Example icon button with a vertical three dot icon"
         (click)="handleMonthChange(-1)"
       >
-        <mat-icon> chevron_left </mat-icon>
+        <i class="pi pi-chevron-left"></i>
       </p-button>
       <p-button
         [text]="true"
@@ -30,7 +30,7 @@
         aria-label="Example icon button with a vertical three dot icon"
         (click)="handleMonthChange(1)"
       >
-        <mat-icon> chevron_right </mat-icon>
+        <i class="pi pi-chevron-right"></i>
       </p-button>
     </div>
   </div>

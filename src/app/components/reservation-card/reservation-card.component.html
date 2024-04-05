@@ -1,8 +1,5 @@
-<mat-card class="reservation-card__card">
-  <mat-card-header>
-    <mat-card-title> Reservation details </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+<p-card class="reservation-card__card h-full" header="Reservation details">
+  <div>
     @if (!disabled) { @if (reservationData) {
     <h4>First name</h4>
     <p>{{ reservationData.firstName }}</p>
@@ -20,11 +17,15 @@
     <p>{{ reservationData.additionalInformation }}</p>
     } @else {
     <p>No booking at this time</p>
-    <button mat-raised-button (click)="handleReservationBook()">
+    <p-button
+      styleClass="secondary"
+      severity="secondary"
+      (click)="handleReservationBook()"
+    >
       Book your reservation
-    </button>
+    </p-button>
     } } @else {
     <p>Please select date and hour first</p>
     }
-  </mat-card-content>
-</mat-card>
+  </div>
+</p-card>
