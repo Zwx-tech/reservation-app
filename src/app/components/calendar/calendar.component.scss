@@ -3,45 +3,63 @@
 @include mat.core();
 
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);
-$secondary: #005cbb;
+$secondary: #b667f4;
 $accent: #faca4d;
 .calendar__wrapper {
     width: fit-content;
+    height: 100%;
 }
 
 .calendar-header {
-    padding: 1rem;
+    padding: 0 1rem;
     padding-bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .control-picker {
+        position: relative;
+        width: 10rem;
+        isolation: isolate;
+        z-index: 5;
+        input {
+            background-color: red;
+            background-color: transparent;
+            color: transparent;
+        }
+        
+        .month-year__preview {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+    }
+    
 }
 
 
 .calendar-body {
-    $day-size: 6rem;
+    $day-size: 6vh;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    width: fit-content;
     padding: .5rem;
     gap: calc($day-size * .2);
     .calendar-body__day {
-        width: calc($day-size * .8);
-        height: calc($day-size * .8);
+        width: 100%;
+        aspect-ratio: 1 / 1 !important ;
         display: grid;
         place-items: center;
-        border-radius: 50%;
-        font-weight: 200;
+        border-radius: .9rem;
+        font-weight: 400;
         // cursor: pointer;
     }
-    
-    .reserved {
-        background-color: $accent;
-    }
 
-    .selected {
-        background-color: $secondary;
-        color: #fff;
+    .reserved > .calendar-body__day {
+        background-color: $accent;
+        border: $accent;
     }
 
 

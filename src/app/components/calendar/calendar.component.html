@@ -1,25 +1,37 @@
-<mat-card class="calendar__wrapper">
+<p-card class="calendar__wrapper" header="Calendar">
   <div class="calendar-header">
     <div class="calendar__view-display">
       @if(_selectedMonth != null) {
-      {{ _selectedYear }} / {{ _selectedMonth + 1 }}
+      <div class="control-picker">
+        <p-calendar
+          (onSelect)="handleDateControlChange($event)"
+          view="month"
+          ateFormat="mm/yy"
+          [readonlyInput]="true"
+        ></p-calendar>
+        <span class="month-year__preview">
+          {{ _selectedMonth }} / {{ _selectedYear }}
+        </span>
+      </div>
       }
     </div>
     <div class="calendar__controls-wrapper">
-      <button
-        mat-icon-button
+      <p-button
+        [text]="true"
+        severity="secondary"
         aria-label="Example icon button with a vertical three dot icon"
         (click)="handleMonthChange(-1)"
       >
         <mat-icon> chevron_left </mat-icon>
-      </button>
-      <button
-        mat-icon-button
+      </p-button>
+      <p-button
+        [text]="true"
+        severity="secondary"
         aria-label="Example icon button with a vertical three dot icon"
         (click)="handleMonthChange(1)"
       >
         <mat-icon> chevron_right </mat-icon>
-      </button>
+      </p-button>
     </div>
   </div>
   <div class="calendar-body">
@@ -33,16 +45,15 @@
     @for(day of dayTable; track $index) { @if(day == null) {
     <div class="calendar-body__day"></div>
     } @else {
-    <button
-      class="calendar-body__day"
-      [class.selected]="day == selected"
+    <p-button
+      styleClass="calendar-body__day secondary"
       [class.reserved]="isReservedDate(day.getDate())"
+      severity="secondary"
       (click)="updateSelected(day)"
-      mat-button
     >
       {{ day.getDate() }}
-    </button>
+    </p-button>
 
     } }
   </div>
-</mat-card>
+</p-card>
