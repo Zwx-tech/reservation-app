@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng build --watch | tsc -p tsconfig.server.json && concurrently \"nodemon dist/server.js\" \"tsc -p tsconfig.server.json -w\"",
+    "server": "tsc -p tsconfig.server.json && concurrently \"nodemon dist/server.js\" \"tsc -p tsconfig.server.json -w\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

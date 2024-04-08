@@ -2,11 +2,15 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "moduleResolution": "node",
+        "baseUrl": "./",
+        "paths": {
+            "@db": ["db/db.mjs"]
+        }
     },
     "include": [
         "server.ts",
         "api/**/*",
         "types/**/*.d.ts"
     ],
-    "exclude": ["src/**/*"]
+    "exclude": ["src/**/*"],
   }

@@ -37,7 +37,7 @@ app.use(express.static(app_folder, staticOptions));
 app.use(express.json());
 
 //* angular route regex
-//? it will match to everything apart from /api route
+//? it will match to everything apart from /api/**/* routes
 const angularRoutes = /^(?!\/api(\/|$)).*$/;
 
 app.all(angularRoutes, (req, res) => {
@@ -46,7 +46,9 @@ app.all(angularRoutes, (req, res) => {
 
 //* Match api all routes
 for (const [routeName, routeOptions] of Object.entries(routes)) {
-  console.table([`/api/${routeName}`, routeOptions]);
+  console.log(
+    `[ROUTE FOUND ${routeOptions.method.toUpperCase()}]: /api/${routeName}`
+  );
   switch (routeOptions.method) {
     case 'post':
       app.post(`/api/${routeName}`, routeOptions.routeFunc);

@@ -1,7 +1,9 @@
-import { addReservation } from "./routes/add-reservation.mjs";
-import { getReservations } from "./routes/get-reservations.mjs";
+import { addReservationRoute } from "./routes/add-reservation.mjs";
+import { getReservationsRoute } from "./routes/get-reservations.mjs";
+import { loginRoute } from "./routes/login.mjs";
 
 export const routes = {
-  "get-reservations": { routeFunc: getReservations, method: "get" },
-  "add-reservation": { routeFunc: addReservation, method: "post" },
+  "reservations/get": { routeFunc: addReservationRoute, method: "get" },
+  "reservations/add": { routeFunc: getReservationsRoute, method: "post" },
+  "auth/login": { routeFunc: loginRoute, method: "get" },
 };
