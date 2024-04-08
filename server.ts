@@ -1,65 +1,104 @@
-import { APP_BASE_HREF } from '@angular/common';
-import { CommonEngine } from '@angular/ssr';
+//* imports
+import cors from 'cors';
+import fs from 'fs';
 import express from 'express';
-import { fileURLToPath } from 'node:url';
-import { dirname, join, resolve } from 'node:path';
-import bootstrap from './src/main.server';
-import { handler } from './api/apiHandler';
+import compression from 'compression';
 
-// The Express app is exported so that it can be used by serverless Functions.
-export function app(): express.Express {
-  const server = express();
-  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, '../browser');
-  const indexHtml = join(serverDistFolder, 'index.server.html');
+//? CONFIG
+const app_folder = './dist/static';
+const PORT = 3000;
 
-  const commonEngine = new CommonEngine();
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 204,
+  methods: 'GET, POST, PUT, DELETE',
+};
 
-  server.set('view engine', 'html');
-  server.set('views', browserDistFolder);
+const staticOptions = {
+  dotfiles: 'ignore',
+  etag: false,
+  extensions: ['html', 'js', 'scss', 'css'],
+  index: false,
+  maxAge: '1y',
+  redirect: true,
+};
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
+//? CREATE APP
+const app = express();
+//* prevent cors errors
+app.use(cors());
 
-  server.get('/api/**', (req, res) => {
-    res.send(200).json({ success: true });
-  });
+//* middleware of some sort, I dunno
+app.use(compression());
 
-  // Serve static files from /browser
-  server.get(
-    '*.*',
-    express.static(browserDistFolder, {
-      maxAge: '1y',
-    })
+app.use(express.static(app_folder, staticOptions));
+
+//* handle post
+app.use(express.json());
+
+//* angular route regex
+const regex = /^(?!\/api(\/|$)).*$/;
+
+app.all(regex, (req, res) => {
+  res.status(200).sendFile(`/`, { root: app_folder });
+});
+
+app.get('/api/get-reservations', (req, res) => {
+  const { month, year } = req.query;
+  const fileNameHelper = (day: number) =>
+    `./reservations/reservations_${day}_${month}_${year}.json`;
+
+  const response = [];
+  for (let day = 1; day < 32; day++) {
+    const fileName = fileNameHelper(day);
+    if (!fs.existsSync(fileName)) continue;
+    response.push(...JSON.parse(fs.readFileSync(fileName, 'utf-8')));
+  }
+
+  res.json(response);
+});
+
+app.post('/api/add-reservation', (req, res) => {
+  const reservation = { id: Date.now(), userID: 0, ...req.body };
+
+  const fileName = `./reservations/reservations_${reservation.date.day}_${reservation.date.month}_${reservation.date.year}.json`;
+  if (!fs.existsSync(fileName)) {
+    // create file and add reservation to it
+    fs.writeFile(fileName, JSON.stringify([reservation]), (err) => {
+      if (err) {
+        res.json({ status: 'error', message: 'Failed to add reservation' });
+      } else {
+        res.json({ status: 'success' });
+      }
+    });
+    return;
+  }
+
+  // open file and check if there is not reservations with same date
+  const reservationsInFile: Reservation[] = JSON.parse(
+    fs.readFileSync(fileName, 'utf-8')
   );
+  if (reservationsInFile.find((r) => r.date.hour === reservation.date.hour)) {
+    res.json({
+      status: 'error',
+      message: 'There is already reservation for this hour',
+    });
+    return;
+  }
+  fs.writeFile(
+    fileName,
+    JSON.stringify([...reservationsInFile, reservation]),
+    (err: any) => {
+      if (err) {
+        res.json({ status: 'error', message: 'Failed to add reservation' });
+      } else {
+        res.json({ status: 'success' });
+      }
+    }
+  );
+  return;
+});
 
-  // All regular routes use the Angular engine
-  server.get('*', (req, res, next) => {
-    const { protocol, originalUrl, baseUrl, headers } = req;
-
-    commonEngine
-      .render({
-        bootstrap,
-        documentFilePath: indexHtml,
-        url: `${protocol}://${headers.host}${originalUrl}`,
-        publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
-      })
-      .then((html) => res.send(html))
-      .catch((err) => next(err));
-  });
-
-  return server;
-}
-
-function run(): void {
-  const port = process.env['PORT'] || 4000;
-
-  // Start up the Node server
-  const server = app();
-  server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
-}
-
-run();
+app.listen(PORT, () => {
+  console.log(`App is running at ${PORT}`);
+});
