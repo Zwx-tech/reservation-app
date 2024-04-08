@@ -1,0 +1,25 @@
+<div class="login-card__wrapper">
+  <p-card header="Login">
+    <form [formGroup]="loginFrom">
+      <p-floatLabel>
+        <input type="text" id="email" pInputText formControlName="email" />
+        <label for="email">Email</label>
+      </p-floatLabel>
+      <p-floatLabel>
+        <p-password
+          formControlName="password"
+          id="password"
+          [feedback]="false"
+        ></p-password>
+        <label for="password">Password</label>
+      </p-floatLabel>
+      <p-button
+        label="Login"
+        [text]="true"
+        class="secondary"
+        severity="secondary"
+        styleClass="login-button"
+      ></p-button>
+    </form>
+  </p-card>
+</div>

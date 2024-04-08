@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "ng": "ng",
-    "start": "tsc -p tsconfig.server.json && concurrently \"nodemon dist/server.js\" \"tsc -p tsconfig.server.json -w\"",
+    "start": "ng build --watch | tsc -p tsconfig.server.json && concurrently \"nodemon dist/server.js\" \"tsc -p tsconfig.server.json -w\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -29,6 +29,8 @@
     "primeicons": "^7.0.0",
     "primeng": "^17.12.0",
     "rxjs": "~7.8.0",
+    "sequelize": "^6.37.2",
+    "sqlite3": "^5.1.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

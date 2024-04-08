@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AddReservationComponent } from './routes/add-reservation/add-reservation.component';
 import { ReservationListComponent } from './routes/reservation-list/reservation-list.component';
 import { CalendarRouteComponent } from './routes/calendar-route/calendar-route.component';
+import { LoginComponent } from './routes/login/login.component';
 
 export const routes: Routes = [
   {
@@ -17,8 +18,12 @@ export const routes: Routes = [
     component: CalendarRouteComponent,
   },
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
     path: '',
-    redirectTo: 'reservation-list',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
 ];

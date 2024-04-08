@@ -1,5 +1,10 @@
+
 # ReservationApp
 Application built as part of recruitment task, for internship program. It took me about 15 hours to complete the game, 5 of which I spent learning Angular.
+
+## Running the project
+please run following command
+`npm start`
 
 ## Technology used
 - Angular
