@@ -25,6 +25,7 @@ const staticOptions = {
 
 //? CREATE APP
 const app = express();
+const router = express.Router();
 //* prevent cors errors
 app.use(cors());
 
@@ -51,10 +52,10 @@ for (const [routeName, routeOptions] of Object.entries(routes)) {
   );
   switch (routeOptions.method) {
     case 'post':
-      app.post(`/api/${routeName}`, routeOptions.routeFunc);
+      app.use(`/api`, router.post(`/${routeName}`, routeOptions.routeFunc));
       break;
     case 'get':
-      app.get(`/api/${routeName}`, routeOptions.routeFunc);
+      app.use(`/api`, router.get(`/${routeName}`, routeOptions.routeFunc));
       break;
     default:
       console.log('Unsupported route method');

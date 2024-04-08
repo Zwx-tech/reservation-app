@@ -21,7 +21,7 @@ type ReservationDate = {
 
 interface Reservation {
   id: number;
-  userID: number;
+  userId: number;
   firstName: string;
   secondName: string;
   email: string;
