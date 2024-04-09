@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -34,8 +35,22 @@ export class RegisterComponent {
   });
 
   authService = inject(AuthService);
+  router = inject(Router);
+
+  constructor() {
+    //* check for sessions
+    effect(() => {
+      if (this.authService.userSignal()) {
+        this.router.navigate(['/']);
+      }
+    });
+  }
 
   handleFormSubmit() {
-    this.authService.register(this.registerFrom.value as Credentials);
+    this.authService
+      .register(this.registerFrom.value as Credentials)
+      .subscribe({
+        next: () => this.router.navigate(['/']),
+      });
   }
 }

@@ -4,6 +4,7 @@ import { ReservationListComponent } from './routes/reservation-list/reservation-
 import { CalendarRouteComponent } from './routes/calendar-route/calendar-route.component';
 import { LoginComponent } from './routes/login/login.component';
 import { RegisterComponent } from './routes/register/register.component';
+import { authGuardGuard } from './guards/auth-guard.guard';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,7 @@ export const routes: Routes = [
   {
     path: 'reservation-list',
     component: ReservationListComponent,
+    canActivate: [authGuardGuard],
   },
   {
     path: 'calendar-view',
@@ -28,7 +30,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'reservation-list',
     pathMatch: 'full',
   },
 ];

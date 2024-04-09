@@ -24,7 +24,7 @@ export async function loginRoute(req: Request, res: Response) {
     });
     //? We shouldn't return user hash
     const safeUser = { email: user.email, id: user.id };
-    return res.status(200).json({ token, safeUser });
+    return res.status(200).json({ token, user: safeUser });
   } catch {
     return res.status(500).json({ error: "Login failed" });
   }

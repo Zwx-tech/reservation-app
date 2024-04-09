@@ -1,6 +1,6 @@
 <div class="login-card__wrapper">
   <p-card header="Login">
-    <form [formGroup]="loginFrom">
+    <form [formGroup]="loginFrom" (ngSubmit)="handleFormSubmit()">
       <p-floatLabel>
         <input type="text" id="email" pInputText formControlName="email" />
         <label for="email">Email</label>
@@ -24,6 +24,7 @@
         class="secondary"
         severity="secondary"
         styleClass="login-button"
+        type="submit"
       ></p-button>
     </form>
   </p-card>

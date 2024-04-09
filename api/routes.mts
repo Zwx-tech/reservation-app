@@ -1,9 +1,11 @@
+import { ServerRoute } from "../types/server";
 import { addReservationRoute } from "./routes/add-reservation.mjs";
 import { getReservationsRoute } from "./routes/get-reservations.mjs";
 import { loginRoute } from "./routes/login.mjs";
 import { registerRoute } from "./routes/register.mjs";
+import { verifyUserRoute } from "./routes/userAuth.mjs";
 
-export const routes = {
+export const routes: { [k: string]: ServerRoute } = {
   "reservations/get": {
     routeFunc: getReservationsRoute,
     method: "get",
@@ -21,6 +23,11 @@ export const routes = {
   },
   "auth/register": {
     routeFunc: registerRoute,
+    method: "post",
+    protected: false,
+  },
+  "auth/user": {
+    routeFunc: verifyUserRoute,
     method: "post",
     protected: false,
   },

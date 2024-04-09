@@ -6,10 +6,12 @@ import { env } from "process";
 
 dotenv.config({ path: ".env" });
 
-export async function loginRoute(req: Request, res: Response) {
+export async function verifyUserRoute(req: Request, res: Response) {
+  console.log("VALIDATING TOKEN");
   try {
     //? Extract and verify JWT token
     const { token } = req.body;
+    console.log(token);
     const secretToken = env["JWT_SECRET_TOKEN"] || "secret-token";
     const decoded = jwt.verify(token, secretToken) as { userId: string };
     const userId = decoded.userId;
@@ -20,7 +22,7 @@ export async function loginRoute(req: Request, res: Response) {
     }
     //? We shouldn't return user hash
     const safeUser = { email: user.email, id: user.id };
-    return res.status(200).json({ safeUser });
+    return res.status(200).json({ user: safeUser });
   } catch {
     return res.status(500).json({ error: "Login failed" });
   }
