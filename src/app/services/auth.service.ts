@@ -1,7 +1,8 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { ApiService } from './api.service';
-import { catchError, map } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { Response } from 'express';
+import { HttpResponse } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
@@ -36,13 +37,18 @@ export class AuthService {
 
   register(userData: Credentials) {
     return this.api.post('/api/auth/register', userData).pipe(
-      map((response) => {
-        const { token, user } = response as AuthResponse;
-        console.log(user);
-        this.token = token;
-        this.userSignal.set(user);
-        console.log(this.userSignal());
-      })
+      map(
+        (response) => {
+          const { token, user } = response as AuthResponse;
+          console.log(user);
+          this.token = token;
+          this.userSignal.set(user);
+          console.log(this.userSignal());
+        },
+        catchError((err) => {
+          throw err as HttpResponse<SafeUser>;
+        })
+      )
     );
   }
 

@@ -1,14 +1,20 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, effect, inject, ViewChild } from '@angular/core';
 import { ReservationService } from '../../services/reservation.service';
 import { CalendarComponent } from '../../components/calendar/calendar.component';
 import { HourPickerComponent } from '../../components/hour-picker/hour-picker.component';
 import { ReservationCardComponent } from '../../components/reservation-card/reservation-card.component';
 import { Router } from '@angular/router';
-
+import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-reservation-list',
   standalone: true,
-  imports: [CalendarComponent, HourPickerComponent, ReservationCardComponent],
+  imports: [
+    CalendarComponent,
+    HourPickerComponent,
+    ReservationCardComponent,
+    ButtonModule,
+  ],
   templateUrl: './reservation-list.component.html',
   styleUrl: './reservation-list.component.scss',
 })
@@ -27,11 +33,17 @@ export class ReservationListComponent {
 
   allReservations: Reservation[] = [];
 
-  constructor(
-    private reservationService: ReservationService,
-    private router: Router
-  ) {}
+  reservationService = inject(ReservationService);
+  authService = inject(AuthService);
+  router = inject(Router);
 
+  constructor() {
+    effect(() => {
+      if (this.authService.userSignal() === null) {
+        this.router.navigate(['/login']);
+      }
+    });
+  }
   ngOnInit() {
     const today = new Date();
     this.refreshReservations(today.getMonth(), today.getFullYear());

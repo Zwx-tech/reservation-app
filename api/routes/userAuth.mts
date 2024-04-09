@@ -11,6 +11,10 @@ export async function verifyUserRoute(req: Request, res: Response) {
   try {
     //? Extract and verify JWT token
     const { token } = req.body;
+    //* If token is null it's invalid
+    if (token === "") {
+      return res.status(401).json({ error: "Invalid token" });
+    }
     console.log(token);
     const secretToken = env["JWT_SECRET_TOKEN"] || "secret-token";
     const decoded = jwt.verify(token, secretToken) as { userId: string };

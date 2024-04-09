@@ -1,10 +1,21 @@
 <div class="register-card__wrapper">
   <p-card header="Register">
     <form [formGroup]="registerFrom" (ngSubmit)="handleFormSubmit()">
-      <p-floatLabel>
-        <input type="text" id="email" pInputText formControlName="email" />
-        <label for="email">Email</label>
-      </p-floatLabel>
+      <div class="field p-fluid mt-4">
+        <p-floatLabel>
+          <input
+            [class]="{ 'ng-invalid': emailInvalid }"
+            type="text"
+            id="email"
+            pInputText
+            formControlName="email"
+          />
+          <label for="email">Email</label>
+        </p-floatLabel>
+        <small [class.visible]="emailInvalid" class="p-error"
+          >Email is not available.</small
+        >
+      </div>
       <p-floatLabel>
         <p-password
           formControlName="password"

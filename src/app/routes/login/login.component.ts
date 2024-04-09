@@ -4,6 +4,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -12,6 +13,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,7 @@ import { Router } from '@angular/router';
     PasswordModule,
     FloatLabelModule,
     ButtonModule,
+    MessagesModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -50,9 +53,9 @@ export class LoginComponent {
     console.log(this.loginFrom.value);
     this.authService.login(this.loginFrom.value as Credentials).subscribe({
       next: () => {
-        console.log(123);
         this.router.parseUrl('/');
       },
+      error: (err) => {},
     });
   }
 }

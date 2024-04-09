@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -37,6 +38,9 @@ export class RegisterComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  //* Error handling
+  emailInvalid = false;
+
   constructor() {
     //* check for sessions
     effect(() => {
@@ -51,6 +55,12 @@ export class RegisterComponent {
       .register(this.registerFrom.value as Credentials)
       .subscribe({
         next: () => this.router.navigate(['/']),
+        error: (err: HttpResponse<any>) => {
+          if (err.status === 400) {
+            //* user already exits
+            this.emailInvalid = true;
+          }
+        },
       });
   }
 }
