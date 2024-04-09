@@ -1,6 +1,6 @@
-<div class="login-card__wrapper">
-  <p-card header="Login">
-    <form [formGroup]="loginFrom">
+<div class="register-card__wrapper">
+  <p-card header="Register">
+    <form [formGroup]="registerFrom" (ngSubmit)="handleFormSubmit()">
       <p-floatLabel>
         <input type="text" id="email" pInputText formControlName="email" />
         <label for="email">Email</label>
@@ -13,17 +13,17 @@
         ></p-password>
         <label for="password">Password</label>
       </p-floatLabel>
-      <a href="/register">
-        You don't have an account <br />
-        <span class="highlight"> Register </span>
+      <a href="/login">
+        You already have an account <br />
+        <span class="highlight"> Login </span>
       </a>
-
       <p-button
-        label="Login"
+        label="Register"
         [text]="true"
         class="secondary"
+        type="submit"
         severity="secondary"
-        styleClass="login-button"
+        styleClass="register-button"
       ></p-button>
     </form>
   </p-card>

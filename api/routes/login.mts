@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { env } from "process";
 
 dotenv.config({ path: ".env" });
+
 export async function loginRoute(req: Request, res: Response) {
   try {
     const { email, password } = req.body;
@@ -21,7 +22,9 @@ export async function loginRoute(req: Request, res: Response) {
     const token = jwt.sign({ userId: user.id }, secretToken, {
       expiresIn: "1h",
     });
-    return res.status(200).json({ token });
+    //? We shouldn't return user hash
+    const safeUser = { email: user.email, id: user.id };
+    return res.status(200).json({ token, safeUser });
   } catch {
     return res.status(500).json({ error: "Login failed" });
   }

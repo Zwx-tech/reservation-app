@@ -3,6 +3,7 @@ import { AddReservationComponent } from './routes/add-reservation/add-reservatio
 import { ReservationListComponent } from './routes/reservation-list/reservation-list.component';
 import { CalendarRouteComponent } from './routes/calendar-route/calendar-route.component';
 import { LoginComponent } from './routes/login/login.component';
+import { RegisterComponent } from './routes/register/register.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
   },
   {
     path: '',

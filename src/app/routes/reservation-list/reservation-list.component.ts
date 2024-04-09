@@ -103,6 +103,7 @@ export class ReservationListComponent {
     )!;
   }
 
+  //MARK: BOOK RESERVATION
   bookNewReservation() {
     if (!this.selectedDate || !this.selectedHour) return;
     this.router.navigate([

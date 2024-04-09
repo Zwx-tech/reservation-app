@@ -3,7 +3,7 @@ import cors from 'cors';
 import { routes } from './api/routes.mjs';
 import express from 'express';
 import compression from 'compression';
-
+import { verifyJWTToken } from './api/authMiddleware.mjs';
 //? CONFIG
 const app_folder = './dist/static';
 const PORT = 3000;
@@ -52,10 +52,24 @@ for (const [routeName, routeOptions] of Object.entries(routes)) {
   );
   switch (routeOptions.method) {
     case 'post':
-      app.use(`/api`, router.post(`/${routeName}`, routeOptions.routeFunc));
+      if (routeOptions.protected) {
+        app.use(
+          `/api`,
+          router.post(`/${routeName}`, verifyJWTToken, routeOptions.routeFunc)
+        );
+      } else {
+        app.use(`/api`, router.post(`/${routeName}`, routeOptions.routeFunc));
+      }
       break;
     case 'get':
-      app.use(`/api`, router.get(`/${routeName}`, routeOptions.routeFunc));
+      if (routeOptions.protected) {
+        app.use(
+          `/api`,
+          router.get(`/${routeName}`, verifyJWTToken, routeOptions.routeFunc)
+        );
+      } else {
+        router.get(`/${routeName}`, routeOptions.routeFunc);
+      }
       break;
     default:
       console.log('Unsupported route method');

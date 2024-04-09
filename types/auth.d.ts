@@ -4,6 +4,10 @@ interface User {
   password: string;
 }
 
+interface SafeUser {
+  id: number;
+  email: string;
+}
 interface ReservationModel {
   id: number;
   firstName: string;
@@ -13,5 +17,14 @@ interface ReservationModel {
   discountCode: string | null;
   additionalInformation: string | null;
   reservationDate: Date;
-  userId: number;
+}
+
+interface Credentials {
+  email: string;
+  password: string;
+}
+
+interface AuthResponse {
+  user: SafeUser;
+  token: string;
 }

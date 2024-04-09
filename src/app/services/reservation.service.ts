@@ -14,7 +14,7 @@ export class ReservationService {
     year: number;
   }): Observable<Reservation[]> {
     return this.apiService.get<Reservation[]>(
-      `${environment.apiUrl}/get-reservations`,
+      `${environment.apiUrl}/reservations/get`,
       {
         responseType: 'json',
         observe: 'body',
@@ -26,7 +26,7 @@ export class ReservationService {
   bookReservation(reservation: ReservationData) {
     console.log('niooom');
     return this.apiService.post(
-      `${environment.apiUrl}/add-reservation`,
+      `${environment.apiUrl}/reservations/add`,
       reservation
     );
   }

@@ -28,7 +28,7 @@ const User = db.define<UserInstance>("User", {
 interface ReservationInstance
   extends Model<ReservationModel>,
     ReservationModel {}
-const Reservation = db.define("Reservation", {
+const Reservation = db.define<ReservationInstance>("Reservation", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
