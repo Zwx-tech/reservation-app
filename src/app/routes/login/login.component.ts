@@ -14,6 +14,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,10 @@ export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  //* Error handling
+  invalidCredentials = false;
+  serverError = false;
+
   constructor() {
     //* check for sessions
     effect(() => {
@@ -55,7 +60,14 @@ export class LoginComponent {
       next: () => {
         this.router.parseUrl('/');
       },
-      error: (err) => {},
+      error: (err: HttpResponse<any>) => {
+        if (err.status === 401) {
+          //* user already exits
+          this.invalidCredentials = true;
+          return;
+        }
+        this.serverError = true;
+      },
     });
   }
 }

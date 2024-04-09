@@ -54,12 +54,17 @@ export class AuthService {
 
   login(userData: Credentials) {
     return this.api.post('/api/auth/login', userData).pipe(
-      map((response) => {
-        const { token, user } = response as AuthResponse;
-        this.token = token;
-        this.userSignal.set(user);
-        return response;
-      })
+      map(
+        (response) => {
+          const { token, user } = response as AuthResponse;
+          this.token = token;
+          this.userSignal.set(user);
+          return response;
+        },
+        catchError((err) => {
+          throw err as HttpResponse<SafeUser>;
+        })
+      )
     );
   }
 

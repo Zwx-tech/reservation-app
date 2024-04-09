@@ -36,6 +36,9 @@
         severity="secondary"
         styleClass="register-button"
       ></p-button>
+      <small [class.visible]="serverError" class="p-error"
+        >Something went wrong. Please try again</small
+      >
     </form>
   </p-card>
 </div>

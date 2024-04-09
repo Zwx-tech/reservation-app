@@ -40,7 +40,7 @@ export class RegisterComponent {
 
   //* Error handling
   emailInvalid = false;
-
+  serverError = false;
   constructor() {
     //* check for sessions
     effect(() => {
@@ -59,7 +59,9 @@ export class RegisterComponent {
           if (err.status === 400) {
             //* user already exits
             this.emailInvalid = true;
+            return;
           }
+          this.serverError = true;
         },
       });
   }

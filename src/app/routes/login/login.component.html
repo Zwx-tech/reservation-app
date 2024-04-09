@@ -2,17 +2,27 @@
   <p-card header="Login">
     <form [formGroup]="loginFrom" (ngSubmit)="handleFormSubmit()">
       <p-floatLabel>
-        <input type="text" id="email" pInputText formControlName="email" />
+        <input
+          [class]="{ 'ng-invalid': invalidCredentials }"
+          type="text"
+          id="email"
+          pInputText
+          formControlName="email"
+        />
         <label for="email">Email</label>
       </p-floatLabel>
       <p-floatLabel>
         <p-password
+          [class]="{ 'ng-invalid': invalidCredentials }"
           formControlName="password"
           id="password"
           [feedback]="false"
         ></p-password>
         <label for="password">Password</label>
       </p-floatLabel>
+      <small [class.visible]="invalidCredentials" class="p-error"
+        >Invalid Credentials</small
+      >
       <a href="/register">
         You don't have an account <br />
         <span class="highlight"> Register </span>
@@ -26,6 +36,9 @@
         styleClass="login-button"
         type="submit"
       ></p-button>
+      <small [class.visible]="serverError" class="p-error"
+        >Something went wrong. Please try again</small
+      >
     </form>
   </p-card>
 </div>
