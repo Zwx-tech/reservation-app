@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, effect, EventEmitter, inject, Output } from '@angular/core';
 import {
   FormControl,
   Validators,
@@ -14,6 +14,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-reservation-form',
   standalone: true,
@@ -34,9 +35,14 @@ export class ReservationFormComponent {
   @Output()
   formSubmit = new EventEmitter<ReservationFormData>();
 
+  authService = inject(AuthService);
+
   //* 'cause email error message may vary, we nee a reference to email form control
   //* its not impossible to reference it without glob reference, but this will make code a little bit cleaner
-  email = new FormControl('', [Validators.required, Validators.email]);
+  email = new FormControl({ value: '', disabled: true }, [
+    Validators.required,
+    Validators.email,
+  ]);
 
   //* discountCode checkbox
   discountCodeEnabled = new FormControl(false);
@@ -60,6 +66,12 @@ export class ReservationFormComponent {
 
   constructor() {
     //* add event that will handle email input validation
+    effect(() => {
+      if (this.authService.userSignal()) {
+        //* We can safely use ! here
+        this.email.setValue(this.authService.userSignal()!.email);
+      }
+    });
     merge(this.email.statusChanges, this.email.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateEmailErrorMessage());
@@ -69,7 +81,11 @@ export class ReservationFormComponent {
     if (this.reservationForm.value === undefined) {
       return;
     }
-    this.formSubmit.emit(this.reservationForm.value as ReservationFormData);
+
+    this.formSubmit.emit({
+      ...this.reservationForm.value,
+      email: this.email.value,
+    } as ReservationFormData);
   }
 
   updateEmailErrorMessage() {

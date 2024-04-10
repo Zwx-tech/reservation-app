@@ -25,7 +25,7 @@ interface Reservation {
   firstName: string;
   secondName: string;
   email: string;
-  paymentMethod: PaymentMethod;
+  paymentMethod: string;
   discountCode: string | null;
   additionalInformation: string;
   date: ReservationDate;
@@ -36,7 +36,7 @@ interface ReservationData {
   secondName: string;
   email: string;
   paymentMethod: string;
-  discountCode: string;
+  discountCode: string | null;
   additionalInformation: string;
   date: ReservationDate;
 }

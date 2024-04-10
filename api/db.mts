@@ -62,6 +62,9 @@ const Reservation = db.define<ReservationInstance>("Reservation", {
     type: DataTypes.DATE,
     allowNull: false,
   },
+  userId: {
+    type: DataTypes.INTEGER,
+  },
 });
 
 User.hasMany(Reservation, { foreignKey: "userId" });

@@ -11,17 +11,21 @@ export async function loginRoute(req: Request, res: Response) {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
+
     if (!user) {
       return res.status(401).json({ error: "Authentication failed" });
     }
+
     const passwordMatch = bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(401).json({ error: "Authentication failed" });
     }
+
     const secretToken = env["JWT_SECRET_TOKEN"] || "secret-token";
     const token = jwt.sign({ userId: user.id }, secretToken, {
       expiresIn: "1h",
     });
+
     //? We shouldn't return user hash
     const safeUser = { email: user.email, id: user.id };
     return res.status(200).json({ token, user: safeUser });

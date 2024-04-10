@@ -1,9 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
 import { ReservationFormComponent } from '../../components/reservation-form/reservation-form.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CustomDatePipe } from '../../pipes/custom-date.pipe';
 import { ReservationService } from '../../services/reservation.service';
 import { CardModule } from 'primeng/card';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-add-reservation',
   standalone: true,
@@ -13,13 +14,20 @@ import { CardModule } from 'primeng/card';
   encapsulation: ViewEncapsulation.None,
 })
 export class AddReservationComponent {
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private reservationService: ReservationService
-  ) {}
-
   reservationDate: ReservationDate | null = null;
+
+  reservationService = inject(ReservationService);
+  authService = inject(AuthService);
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+
+  constructor() {
+    effect(() => {
+      if (this.authService.userSignal() === null) {
+        this.router.navigate(['/login']);
+      }
+    });
+  }
 
   ngOnInit() {
     const hour = this.route.snapshot.paramMap.get('hour')!;
@@ -31,6 +39,7 @@ export class AddReservationComponent {
 
   handleFormSubmit(formData: ReservationFormData) {
     if (!this.reservationDate) return;
+    console.log(formData);
     this.reservationService
       .bookReservation({
         ...formData,

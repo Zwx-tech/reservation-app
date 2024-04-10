@@ -17,6 +17,7 @@ interface ReservationModel {
   discountCode: string | null;
   additionalInformation: string | null;
   reservationDate: Date;
+  userId: number;
 }
 
 interface Credentials {

@@ -6,6 +6,7 @@ import { ReservationCardComponent } from '../../components/reservation-card/rese
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
+import { map } from 'rxjs';
 @Component({
   selector: 'app-reservation-list',
   standalone: true,
@@ -44,6 +45,7 @@ export class ReservationListComponent {
       }
     });
   }
+
   ngOnInit() {
     const today = new Date();
     this.refreshReservations(today.getMonth(), today.getFullYear());
