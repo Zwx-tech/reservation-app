@@ -9,7 +9,7 @@ export const routes: { [k: string]: ServerRoute } = {
   "reservations/get": {
     routeFunc: getReservationsRoute,
     method: "get",
-    protected: false,
+    protected: true,
   },
   "reservations/add": {
     routeFunc: addReservationRoute,

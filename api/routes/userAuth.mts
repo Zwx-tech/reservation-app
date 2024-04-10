@@ -17,7 +17,7 @@ export async function verifyUserRoute(req: Request, res: Response) {
     }
     console.log(token);
     const secretToken = env["JWT_SECRET_TOKEN"] || "secret-token";
-    const decoded = jwt.verify(token, secretToken) as { userId: string };
+    const decoded = jwt.verify(token, secretToken) as JWTPayload;
     const userId = decoded.userId;
     //? Return user
     const user = await User.findOne({ where: { id: userId } });

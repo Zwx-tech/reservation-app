@@ -28,3 +28,7 @@ interface AuthResponse {
   user: SafeUser;
   token: string;
 }
+
+interface JWTPayload {
+  userId: string;
+}

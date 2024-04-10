@@ -68,14 +68,14 @@ User.hasMany(Reservation, { foreignKey: "userId" });
 Reservation.belongsTo(User, { foreignKey: "userId" });
 
 //* sync all models
-await db
-  .sync({ force: true })
-  .then(() => {
-    console.log("Database synchronized");
-  })
-  .catch((err) => {
-    console.error("Error synchronizing database:", err);
-  });
+// await db
+//   .sync({ force: true })
+//   .then(() => {
+//     console.log("Database synchronized");
+//   })
+//   .catch((err) => {
+//     console.error("Error synchronizing database:", err);
+//   });
 
 //* validate connection
 async function validateConnection() {

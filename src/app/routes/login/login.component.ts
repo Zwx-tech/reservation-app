@@ -62,7 +62,7 @@ export class LoginComponent {
       },
       error: (err: HttpResponse<any>) => {
         if (err.status === 401) {
-          //* user already exits
+          //* Invalid login or password
           this.invalidCredentials = true;
           return;
         }
