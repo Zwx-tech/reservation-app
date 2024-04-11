@@ -15,10 +15,28 @@
     </p>
     <h4>Additional information</h4>
     <p>{{ reservationData.additionalInformation }}</p>
-    } @else {
+    @if(authService.userSignal()) { @if(authService.userSignal()!.id ===
+    reservationData.userId) {
+    <div class="user-control__wrapper">
+      <p-button
+        styleClass="secondary"
+        severity="secondary"
+        (click)="handleReservationCancel()"
+      >
+        Cancel
+      </p-button>
+      <p-button
+        styleClass="secondary button-full"
+        severity="secondary"
+        (click)="handleReservationEdit()"
+      >
+        Edit
+      </p-button>
+    </div>
+    } } } @else {
     <p>No booking at this time</p>
     <p-button
-      styleClass="secondary"
+      styleClass="secondary button-full"
       severity="secondary"
       (click)="handleReservationBook()"
     >

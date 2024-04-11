@@ -13,3 +13,14 @@
         margin-bottom: .5rem;
     }
 }
+
+.reservation-card__card .user-control__wrapper{
+    margin-top: auto;
+    display: flex;
+    gap: 1rem;
+    * {
+        flex: 1;
+        width: 100%;
+        justify-content: center;
+    }
+}

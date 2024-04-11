@@ -1,4 +1,3 @@
-import fs from "fs";
 import { Response, Request } from "express";
 import { Reservation } from "../db.mjs";
 

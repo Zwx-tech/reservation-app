@@ -53,10 +53,16 @@ export class ReservationService {
   }
 
   bookReservation(reservation: ReservationData) {
-    console.log('niooom');
     return this.apiService.post(
       `${environment.apiUrl}/reservations/add`,
       reservation
     );
+  }
+
+  deleteReservation(reservationId: number) {
+    console.log(123);
+    return this.apiService.post(`${environment.apiUrl}/reservations/delete`, {
+      reservationId,
+    });
   }
 }

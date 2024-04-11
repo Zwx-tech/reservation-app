@@ -39,7 +39,6 @@ export async function getReservationsRoute(req: Request, res: Response) {
         ],
       },
     });
-    console.log(reservations);
     // Send the reservations as JSON response
     return res.status(200).json(reservations);
   } catch (error) {

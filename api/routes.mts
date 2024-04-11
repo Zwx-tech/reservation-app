@@ -1,5 +1,6 @@
 import { ServerRoute } from "../types/server";
 import { addReservationRoute } from "./routes/add-reservation.mjs";
+import { deleteReservationRoute } from "./routes/del-reservation.mjs";
 import { getReservationsRoute } from "./routes/get-reservations.mjs";
 import { loginRoute } from "./routes/login.mjs";
 import { registerRoute } from "./routes/register.mjs";
@@ -13,6 +14,11 @@ export const routes: { [k: string]: ServerRoute } = {
   },
   "reservations/add": {
     routeFunc: addReservationRoute,
+    method: "post",
+    protected: true,
+  },
+  "reservations/delete": {
+    routeFunc: deleteReservationRoute,
     method: "post",
     protected: true,
   },
