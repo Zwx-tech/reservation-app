@@ -26,6 +26,8 @@ export class ReservationCardComponent {
 
   @Output()
   bookEvent = new EventEmitter();
+  @Output()
+  onChange = new EventEmitter();
   disabled = true;
 
   authService = inject(AuthService);
@@ -46,6 +48,7 @@ export class ReservationCardComponent {
     this.reservationService
       .deleteReservation(this.reservationData.id)
       .subscribe((res) => {
+        this.onChange.emit();
         console.log(res);
       });
   }

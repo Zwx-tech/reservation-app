@@ -69,6 +69,23 @@ export class ReservationListComponent {
       });
   }
 
+  onCardChange() {
+    if (this.selectedDate === null) return;
+    this.refreshReservations(
+      this.selectedDate.getMonth(),
+      this.selectedDate.getFullYear()
+    );
+    this.resetView();
+  }
+
+  resetView() {
+    this.reservationCard.disabled = true;
+    this.hourPicker.disabled = true;
+    this.selectedHour = null;
+    this.reservedHours = [];
+    this.selectedDate = null;
+  }
+
   selectedDateChange(e: any) {
     // reset everything
     this.reservationCard.disabled = true;

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ApiService } from './api.service';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
@@ -22,6 +22,7 @@ export class ReservationService {
       }`,
     };
   }
+
   getReservations(params: {
     month: number;
     year: number;
