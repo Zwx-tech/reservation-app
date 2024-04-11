@@ -27,3 +27,14 @@
     top: .5rem;
     right: .5rem;
 }
+
+@media screen and (max-width: 90rem) {
+    .reservation-list__wrapper {
+        display: grid;
+        grid-template-columns: repeat(1fr, 2);
+        
+        .calendar {
+            grid-column: 2 span;
+        }
+    }
+}
