@@ -4,6 +4,16 @@ $accent: #faca4d;
 .calendar__wrapper {
     width: 100%;
     height: 100%;
+
+    /* Adjust font size */
+    .p-button,
+    .calendar-body__day.header, 
+    .p-calendar input, 
+    .p-calendar,
+    .calendar__controls-wrapper i, 
+    .month-year__preview {
+        font-size: $font-scaling;
+    }
 }
 
 .calendar-header {
@@ -16,17 +26,24 @@ $accent: #faca4d;
     .calendar__controls-wrapper {
         display: flex;
         gap: 1rem;
+
+        .p-button {
+            display: grid;
+            place-items: center;
+            padding: 1em 1.25em;
+        }
     }
     
     .control-picker {
         position: relative;
-        width: 10rem;
+        width: clamp(6em, 20vw, 10em);
         isolation: isolate;
         z-index: 5;
         input {
             background-color: red;
             background-color: transparent;
             color: transparent;
+            padding: .7em 0;
         }
         
         .month-year__preview {
@@ -34,6 +51,7 @@ $accent: #faca4d;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            width: max-content;
             z-index: -1;
         }
     }
@@ -55,30 +73,31 @@ $accent: #faca4d;
 }
 
 .calendar-body {
-    $day-size: 6vh;
+    $day-size: 6vw;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     padding: .5rem;
-    gap: calc($day-size * .2);
-    
+    gap: clamp(.2rem, calc($day-size * .2), 1rem);  
     
     .calendar-body__day {
         width: 100%;
         aspect-ratio: 1 / 1 !important;
         display: grid;
         place-items: center;
-        border-radius: .9rem;
+        border-radius: .9em;
         font-weight: 400;
+    }
+
+    button.calendar-body__day {
+        display: grid;
+        place-items: center;
+        padding: 0;
     }
 
     .reserved > .calendar-body__day {
         background-color: $accent;
         border: $accent;
-    }
-
-    .selected > .calendar-body__day {
-        
     }
 
     .header {

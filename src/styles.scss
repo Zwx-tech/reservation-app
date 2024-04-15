@@ -13,6 +13,9 @@
     body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
+:root {
+    $font-scaling: clamp(10px, 2.5vw, 16px);
+}
 body {
     background-color: #fefefe;
 }
@@ -39,4 +42,8 @@ body {
 
 .p-card {
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.p-card-title {
+    font-size: clamp(15px, 5vw, 24px);
 }

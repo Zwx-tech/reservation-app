@@ -10,6 +10,25 @@ export async function addReservationRoute(req: Request, res: Response) {
     return res.status(400).json({ error: "Invalid user payload" });
 
   try {
+    //* Check if there is already a reservation for the specified date
+    const existingReservation = await Reservation.findOne({
+      where: {
+        reservationDate: new Date(
+          reservationData.date.year,
+          reservationData.date.month,
+          reservationData.date.day,
+          parseInt(reservationData.date.hour)
+        ),
+      },
+    });
+
+    if (existingReservation) {
+      return res
+        .status(400)
+        .json({ error: "Reservation already exists for this date" });
+    }
+
+    //* Create reservation
     const reservation = await Reservation.create({
       userId: parseInt(userId),
       firstName: reservationData.firstName,

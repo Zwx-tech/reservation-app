@@ -5,15 +5,7 @@
     min-height: 100vh;
     gap: 1rem;
     
-    .hour-picker, .calendar, .reservation-card {
-        height: clamp(30rem, 90vh, 60rem);
-    }
-
-    .hour-picker {
-        aspect-ratio: 5 / 12;
-    }
-
-    .reservation-card {
+    .hour-picker, .reservation-card {
         aspect-ratio: 5 / 12;
     }
 
@@ -28,13 +20,28 @@
     right: .5rem;
 }
 
+@media screen and (min-width: 90rem) {
+    .hour-picker, .calendar, .reservation-card {
+        height: clamp(30rem, 90vh, 60rem);
+    }
+}
+
 @media screen and (max-width: 90rem) {
     .reservation-list__wrapper {
-        display: grid;
-        grid-template-columns: repeat(1fr, 2);
+        $item-size: 50rem;
+
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-items: flex-start;
         
-        .calendar {
-            grid-column: 2 span;
+        padding-inline: clamp(1rem, 10vw, 15rem);
+        padding-top: 1rem;
+
+        .calendar, .hour-picker, .reservation-card {
+            width: 100%;
+            max-width: $item-size;
         }
+
     }
 }
