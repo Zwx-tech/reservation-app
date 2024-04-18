@@ -5,6 +5,7 @@ import { CalendarRouteComponent } from './routes/calendar-route/calendar-route.c
 import { LoginComponent } from './routes/login/login.component';
 import { RegisterComponent } from './routes/register/register.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
+import { LandingRouteComponent } from './routes/landing-route/landing-route.component';
 
 export const routes: Routes = [
   {
@@ -29,8 +30,12 @@ export const routes: Routes = [
     component: RegisterComponent,
   },
   {
+    path: 'home',
+    component: LandingRouteComponent,
+  },
+  {
     path: '',
-    redirectTo: 'reservation-list',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
 ];

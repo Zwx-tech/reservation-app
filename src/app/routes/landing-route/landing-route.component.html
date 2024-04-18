@@ -1,0 +1,61 @@
+<div class="landing-page__wrapper">
+  <header>
+    <nav>
+      <h4>
+        <a href="#">Safehouse<i class="pi pi-book"></i> </a>
+      </h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Offer</a></li>
+        <li><a href="/reservation-list">Book</a></li>
+        @if(authService.userSignal()) {
+        <p-button
+          severity="secondary"
+          class="secondary"
+          (onClick)="authService.logOut()"
+          >Logout</p-button
+        >
+        } @else {
+        <li>
+          <a href="/login" class="p-button p-button-outlined">Login</a>
+        </li>
+        <li><a href="/register" class="p-button secondary">Sing up</a></li>
+        }
+      </ul>
+    </nav>
+    <div class="about__wrapper">
+      <div class="description__wrapper">
+        <h2>Safehouse</h2>
+        <p>
+          "At SafeHouse, we redefine productivity by curating serene
+          environments in partnership with libraries, cafes, and more, offering
+          individuals a haven for focused work or study. Our mission is to
+          provide a sanctuary where distractions fade away, enabling our patrons
+          to unleash their full potential. With a network of trusted locations,
+          we ensure access to safe and quiet spaces tailored to diverse
+          preferences."
+        </p>
+        <div class="button__wrapper">
+          <p-button
+            severity="secondary"
+            class="secondary"
+            (onClick)="router.navigate(['/reservation-list'])"
+            >Book now!</p-button
+          >
+          <p-button severity="secondary" class="secondary" [outlined]="true"
+            >Explore out offer</p-button
+          >
+        </div>
+      </div>
+      <div class="image-gallery__wrapper">
+        <div class="gallery_heading">
+          <h2>Your place to get the work done</h2>
+        </div>
+        <img src="/assets/student.jpg" alt="Workspace 1" />
+        <img src="/assets/student2.jpg" alt="Workspace 2" />
+        <img src="/assets/student3.jpg" alt="Workspace 3" />
+        <img src="/assets/student4.jpg" alt="Workspace 4" />
+      </div>
+    </div>
+  </header>
+</div>

@@ -40,7 +40,6 @@ export class AuthService {
       map(
         (response) => {
           const { token, user } = response as AuthResponse;
-          console.log(user);
           this.token = token;
           this.userSignal.set(user);
           console.log(this.userSignal());
