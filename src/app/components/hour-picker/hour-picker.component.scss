@@ -1,16 +1,19 @@
 // @use '/themes/variables';
+$font-scaling: clamp(10px, 2.5vw, 16px);
+
+.hour-picker__card .p-button, 
+.hour-picker__card {
+    font-size: $font-scaling;
+}
 
 .hour-picker__card{
     height: 100%;
     width: 100%;
 
+    container-type: inline-size;
 
     .hour-picker__buttons {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        gap: 1rem;
+        gap: clamp(.2rem, calc(6vw * .2), 1rem);
     }
 
     .hour-picker__buttons .p-button {
@@ -20,5 +23,34 @@
     }
     .reservation-visible .p-button{
         background-color: #faca4d;
+    }
+}
+@media screen and (min-width: 90rem) {
+    .hour-picker__buttons {
+        display: flex;
+
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+    }
+}
+
+@media screen and (max-width: 90rem) {
+    .hour-picker__buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: stretch;
+        p {
+            grid-column: 4 span;
+        }
+        .p-element {
+            flex: 1;
+        }
+    }
+
+    .hour-picker__buttons .p-button {
+        padding: 1em .2em;
+        display: grid;
+        place-items: center;
     }
 }

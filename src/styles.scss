@@ -13,9 +13,6 @@
     body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
-:root {
-    $font-scaling: clamp(10px, 2.5vw, 16px);
-}
 body {
     background-color: #fefefe;
 }

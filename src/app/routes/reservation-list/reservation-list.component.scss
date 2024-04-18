@@ -5,7 +5,7 @@
     min-height: 100vh;
     gap: 1rem;
     
-    .hour-picker, .reservation-card {
+    .hour-picker{
         aspect-ratio: 5 / 12;
     }
 
@@ -24,6 +24,10 @@
     .hour-picker, .calendar, .reservation-card {
         height: clamp(30rem, 90vh, 60rem);
     }
+
+    .reservation-card  {
+        aspect-ratio: 5 / 12;
+    }
 }
 
 @media screen and (max-width: 90rem) {
@@ -35,12 +39,20 @@
        align-items: center;
        justify-items: flex-start;
         
+       padding: 1rem 0;
         padding-inline: clamp(1rem, 10vw, 15rem);
-        padding-top: 1rem;
-
+        
         .calendar, .hour-picker, .reservation-card {
             width: 100%;
             max-width: $item-size;
+        }
+
+        .hour-picker {
+            aspect-ratio: 12 / 5;
+        }
+
+        .reservation-card {
+            min-height: 10rem;
         }
 
     }
