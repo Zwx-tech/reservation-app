@@ -1,1 +1,23 @@
-<p>menu works!</p>
+<nav>
+  <h4>
+    <a href="/home">Safehouse<i class="pi pi-book"></i> </a>
+  </h4>
+  <ul>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Offer</a></li>
+    <li><a href="/reservation-list">Book</a></li>
+    @if(authService.userSignal()) {
+    <p-button
+      severity="secondary"
+      class="secondary"
+      (onClick)="authService.logOut()"
+      >Logout</p-button
+    >
+    } @else {
+    <li>
+      <a href="/login" class="p-button p-button-outlined">Login</a>
+    </li>
+    <li><a href="/register" class="p-button secondary">Sing up</a></li>
+    }
+  </ul>
+</nav>

@@ -4,32 +4,7 @@
     }
 
     header {
-        nav {
-            padding: .7rem 1.5rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            h4 a{
-                font-weight: 500;
-                font-size: 1.5rem;
-                i {
-                    font-size: 1em;
-                }
-            }
-
-            ul {
-                margin-left: auto;
-                align-items: center;
-                display: flex;
-                list-style: none;
-                gap: 1rem;
-            }
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #222;
-        }
+        
         
         .about__wrapper {
             margin-top: 4rem;
