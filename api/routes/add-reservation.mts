@@ -31,6 +31,7 @@ export async function addReservationRoute(req: Request, res: Response) {
     //* Create reservation
     const reservation = await Reservation.create({
       userId: parseInt(userId),
+      placeId: parseInt(reservationData.placeId),
       firstName: reservationData.firstName,
       secondName: reservationData.secondName,
       email: reservationData.email,

@@ -20,6 +20,8 @@ import { map } from 'rxjs';
   styleUrl: './reservation-list.component.scss',
 })
 export class ReservationListComponent {
+  placeId: null | string = null;
+
   selectedDate: Date | null = null;
   selectedHour: string | null = null;
   selectedReservation: Reservation | null = null;
@@ -38,12 +40,39 @@ export class ReservationListComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  extractParams(): Record<string, string> {
+    const paramsString = this.router.url.split('?')[1]; // Get the part of URL containing parameters
+    const params: Record<string, string> = {}; // Initialize an empty object to store parameters
+
+    if (paramsString) {
+      const paramsArray = paramsString.split('&'); // Split parameters into an array
+      paramsArray.forEach((param) => {
+        const [key, value] = param.split('='); // Split parameter into key-value pair
+        params[key] = decodeURIComponent(value); // Add parameter to the object, decoding URI component
+      });
+    }
+
+    return params; // Return the object containing all parameters
+  }
+
   constructor() {
     effect(() => {
       if (this.authService.userSignal() === null) {
         this.router.navigate(['/login']);
       }
     });
+    // TODO Step form
+    //* For now i will just redirect user to offer page
+    //* but i plan to transform this page into step form.
+    //* It will look more less like that:
+    //* STEP 1 - pick an offer
+    //* STEP 2 - view reservation for selected palce
+    //? If user was redirected from offer page already then skip 1st step
+    //? I also think about integrating ADD RESERVATION page as STEP 3 of this form
+    this.placeId = this.extractParams()['place_id'];
+    if (this.placeId === null) {
+      this.router.navigate(['/offer']);
+    }
   }
 
   ngOnInit() {
@@ -58,8 +87,9 @@ export class ReservationListComponent {
   }
 
   refreshReservations(month: number, year: number) {
+    if (this.placeId === null) return;
     this.reservationService
-      .getReservations({ month, year })
+      .getReservations({ month, year, placeId: this.placeId })
       .subscribe((reservations) => {
         console.log(reservations);
         this.allReservations = reservations;
@@ -87,15 +117,14 @@ export class ReservationListComponent {
   }
 
   selectedDateChange(e: any) {
-    // reset everything
+    //* reset everything
     this.reservationCard.disabled = true;
     this.selectedHour = null;
-    // disable/enable hour picker
+    //* disable/enable hour picker
     if (this.selectedDate === null) {
       this.hourPicker.disabled = true;
       return;
     }
-    // console.log(this.calendar);
     this.refreshReservations(
       this.selectedDate.getMonth(),
       this.selectedDate.getFullYear()
@@ -136,7 +165,7 @@ export class ReservationListComponent {
 
   //MARK: BOOK RESERVATION
   bookNewReservation() {
-    if (!this.selectedDate || !this.selectedHour) return;
+    if (!this.selectedDate || !this.selectedHour || !this.placeId) return;
     this.router.navigate([
       '/add-reservation',
       {
@@ -144,6 +173,7 @@ export class ReservationListComponent {
         day: this.selectedDate.getDate(),
         month: this.selectedDate.getMonth(),
         year: this.selectedDate.getFullYear(),
+        place_id: this.placeId,
       },
     ]);
   }

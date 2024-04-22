@@ -15,6 +15,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AddReservationComponent {
   reservationDate: ReservationDate | null = null;
+  placeId: string | null = null;
 
   reservationService = inject(ReservationService);
   authService = inject(AuthService);
@@ -34,15 +35,17 @@ export class AddReservationComponent {
     const day = parseInt(this.route.snapshot.paramMap.get('day')!);
     const month = parseInt(this.route.snapshot.paramMap.get('month')!);
     const year = parseInt(this.route.snapshot.paramMap.get('year')!);
+    this.placeId = this.route.snapshot.paramMap.get('place_id');
     this.reservationDate = { hour, day, month, year };
   }
 
   handleFormSubmit(formData: ReservationFormData) {
-    if (!this.reservationDate) return;
+    if (!this.reservationDate || !this.placeId) return;
     console.log(formData);
     this.reservationService
       .bookReservation({
         ...formData,
+        placeId: this.placeId,
         date: this.reservationDate,
       })
       .subscribe(() => {

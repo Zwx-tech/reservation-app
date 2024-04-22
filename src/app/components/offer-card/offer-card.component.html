@@ -1,0 +1,31 @@
+@if(offerData !== null) {
+<a class="offer-link" href="/reservation-list?place_id={{ offerData.id }}">
+  <div class="offer-card">
+    <div class="offer-img_wrapper">
+      <img src="{{ offerData.img_url }}" alt="{{ offerData.name }}" />
+    </div>
+    <div class="offer-card__content">
+      <div class="row">
+        <h2>{{ offerData.name }}</h2>
+        <div class="rating">
+          <i class="pi pi-star-fill" style="color: #fe4f23"></i>
+          {{ offerData.rating }}
+        </div>
+      </div>
+      <div class="location">
+        <i class="pi pi-map-marker"></i> {{ offerData.location }}
+      </div>
+      <div class="row tags">
+        @for(tag of offerData.tags | extractTags; track tag) {
+        <p-chip label="{{ tag }}"></p-chip>
+        }
+      </div>
+      <p-divider></p-divider>
+      <div class="row price">
+        <div class="price-amount">{{ offerData.price }}zł</div>
+        <div class="price-unit">per hour</div>
+      </div>
+    </div>
+  </div>
+</a>
+}

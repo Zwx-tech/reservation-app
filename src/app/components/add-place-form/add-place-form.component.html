@@ -1,0 +1,66 @@
+<form
+  class="add-place-form"
+  [formGroup]="addPlaceForm"
+  (ngSubmit)="handleFormSubmit()"
+>
+  <h4>Place description</h4>
+  <span class="p-float-label">
+    <input pInputText id="name" formControlName="name" />
+    <label for="name">name</label>
+  </span>
+  <span class="p-float-label">
+    <input pInputText id="description" formControlName="description" />
+    <label for="description">description</label>
+  </span>
+  <span class="p-float-label">
+    <input pInputText id="location" formControlName="location" />
+    <label for="location">location</label>
+  </span>
+  <span class="p-float-label">
+    <input pInputText id="img_url" formControlName="img_url" />
+    <label for="img_url">Image url</label>
+  </span>
+  <span class="p-float-label">
+    <p-multiSelect
+      inputId="tags"
+      [options]="possibleTags"
+      formControlName="tags"
+      class="tags_input"
+      display="chip"
+      [selectionLimit]="3"
+    ></p-multiSelect>
+    <label for="tags">Select Tags</label>
+  </span>
+  <div class="flex-auto">
+    <label class="block font-bold mb-2" for="rating">Rating</label>
+    <p-inputNumber
+      formControlName="rating"
+      inputId="rating"
+      suffix="/5"
+      [min]="0"
+      [max]="5"
+    >
+    </p-inputNumber>
+  </div>
+  <div class="flex-auto">
+    <label class="block font-bold mb-2" for="price">Price</label>
+    <p-inputNumber
+      formControlName="price"
+      inputId="price"
+      mode="currency"
+      currency="PLN"
+      locale="pl-PL"
+    >
+    </p-inputNumber>
+  </div>
+  <p-button
+    [disabled]="addPlaceForm.invalid"
+    decrementButtonClass="p-button-secondary"
+    incrementButtonClass="p-button-secondary"
+    type="submit"
+    severity="secondary"
+    class="secondary"
+  >
+    Add place
+  </p-button>
+</form>

@@ -26,6 +26,7 @@ export class ReservationService {
   getReservations(params: {
     month: number;
     year: number;
+    placeId: string;
   }): Observable<Reservation[]> {
     return this.apiService
       .get<ReservationModel[]>(`${environment.apiUrl}/reservations/get`, {
@@ -39,6 +40,7 @@ export class ReservationService {
             (reservation) =>
               ({
                 id: reservation.id,
+                placeId: reservation.placeId,
                 userId: reservation.userId,
                 firstName: reservation.firstName,
                 secondName: reservation.secondName,

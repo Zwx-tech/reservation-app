@@ -5,7 +5,7 @@ export async function getReservationsRoute(req: Request, res: Response) {
   console.log("GET RESERVATIONS");
 
   try {
-    const { month, year } = req.query;
+    const { month, year, placeId } = req.query;
 
     // Validate month and year parameters
     if (!month || !year) {
@@ -24,22 +24,19 @@ export async function getReservationsRoute(req: Request, res: Response) {
       return res.status(400).json({ error: "Invalid month or year format" });
     }
 
-    // Get reservations for the specified month and year from the database
+    //? Get reservations for the specified month and year from the database
     const reservations = await Reservation.findAll({
       where: {
-        [Op.and]: [
-          {
-            reservationDate: {
-              [Op.gte]: new Date(yearNumber, monthNumber - 1, 1),
-            },
-          },
-          {
-            reservationDate: { [Op.lt]: new Date(yearNumber, monthNumber, 1) },
-          },
-        ],
+        placeId: placeId as string, // Ensure placeId is of type string
+        reservationDate: {
+          [Op.and]: [
+            { [Op.gte]: new Date(yearNumber, monthNumber - 1, 1) },
+            { [Op.lt]: new Date(yearNumber, monthNumber, 1) },
+          ],
+        },
       },
     });
-    // Send the reservations as JSON response
+    //* Send the reservations as JSON response
     return res.status(200).json(reservations);
   } catch (error) {
     console.error("Error fetching reservations:", error);

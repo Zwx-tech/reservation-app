@@ -1,8 +1,8 @@
 import { effect, inject, Injectable, signal } from '@angular/core';
 import { ApiService } from './api.service';
 import { catchError, map, Observable } from 'rxjs';
-import { Response } from 'express';
 import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,6 +13,7 @@ export class AuthService {
   userSignal = signal<undefined | null | SafeUser>(undefined);
 
   api = inject(ApiService);
+  router = inject(Router);
 
   constructor() {
     //* on init check is there is any session

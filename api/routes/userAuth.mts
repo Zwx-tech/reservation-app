@@ -27,7 +27,7 @@ export async function verifyUserRoute(req: Request, res: Response) {
     }
 
     //? We shouldn't return user hash
-    const safeUser = { email: user.email, id: user.id };
+    const safeUser = { email: user.email, id: user.id, isAdmin: user.isAdmin };
     return res.status(200).json({ user: safeUser });
   } catch (err) {
     console.log("Validation err: ", err);

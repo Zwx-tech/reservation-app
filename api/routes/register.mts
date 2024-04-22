@@ -23,6 +23,7 @@ export async function registerRoute(req: Request, res: Response) {
     const user = await User.create({
       email: email,
       password: hashedPassword,
+      isAdmin: false,
     } as Optional<User, never>);
 
     //? And authorize him

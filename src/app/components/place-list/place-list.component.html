@@ -1,0 +1,33 @@
+<div class="place-list__wrapper">
+  <!--* ADD NEW PLACE-->
+  @if(authService.userSignal()) { @if(authService.userSignal()!.isAdmin) {
+  <p-dialog
+    header="Add Place"
+    [(visible)]="placeFormVisible"
+    styleClass="dialog"
+  >
+    <app-add-place-form></app-add-place-form>
+  </p-dialog>
+
+  <p-button
+    class="add-place-button secondary"
+    severity="secondary"
+    (onClick)="placeFormVisible = true"
+    icon="pi pi-plus"
+    label="Add place"
+    [disabled]="placeFormVisible"
+  ></p-button>
+  } }
+  <!--* DISPLAY OFFER(PLACES)-->
+  <h2>Recent offers</h2>
+  <div class="offer-row">
+    @for(place of placeList; track place.id) {
+    <app-offer-card [offerData]="place"></app-offer-card>
+    } @empty {
+    <p>
+      There are no offers right now, check your network connection and try again
+    </p>
+    }
+  </div>
+  <app-offer-card></app-offer-card>
+</div>

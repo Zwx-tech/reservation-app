@@ -7,6 +7,16 @@ interface ReservationFormData {
   additionalInformation: string;
 }
 
+interface PlaceFormData {
+  name: string;
+  description: string;
+  location: string;
+  img_url: string;
+  tags: string;
+  rating: number;
+  price: number;
+}
+
 enum PaymentMethod {
   'card',
   'cash',
@@ -21,6 +31,7 @@ type ReservationDate = {
 
 interface Reservation {
   id: number;
+  placeId: number;
   userId: number;
   firstName: string;
   secondName: string;
@@ -33,6 +44,7 @@ interface Reservation {
 
 interface ReservationData {
   firstName: string;
+  placeId: string;
   secondName: string;
   email: string;
   paymentMethod: string;

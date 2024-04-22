@@ -6,6 +6,7 @@ import { LoginComponent } from './routes/login/login.component';
 import { RegisterComponent } from './routes/register/register.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
 import { LandingRouteComponent } from './routes/landing-route/landing-route.component';
+import { OfferRouteComponent } from './routes/offer-route/offer-route.component';
 
 export const routes: Routes = [
   {
@@ -32,6 +33,10 @@ export const routes: Routes = [
   {
     path: 'home',
     component: LandingRouteComponent,
+  },
+  {
+    path: 'offer',
+    component: OfferRouteComponent,
   },
   {
     path: '',

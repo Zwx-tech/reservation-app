@@ -22,6 +22,48 @@ const User = db.define<UserInstance>("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+});
+
+interface PlaceInstance extends Model<Place>, Place {}
+
+const Place = db.define<PlaceInstance>("Place", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  tags: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  location: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  img_url: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  rating: {
+    type: DataTypes.NUMBER,
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.NUMBER,
+    allowNull: false,
+  },
 });
 
 //* Reservation model
@@ -65,12 +107,19 @@ const Reservation = db.define<ReservationInstance>("Reservation", {
   userId: {
     type: DataTypes.INTEGER,
   },
+  placeId: {
+    type: DataTypes.NUMBER,
+  },
 });
 
+//* User reservation relation
 User.hasMany(Reservation, { foreignKey: "userId" });
 Reservation.belongsTo(User, { foreignKey: "userId" });
 
-//* sync all models
+//* Place reservation relation
+Place.hasMany(Reservation, { foreignKey: "placeId" });
+Reservation.belongsTo(Place, { foreignKey: "placeId" });
+// * sync all models
 // await db
 //   .sync({ force: true })
 //   .then(() => {
@@ -90,4 +139,4 @@ async function validateConnection() {
   }
 }
 
-export { db, User, Reservation, validateConnection };
+export { db, User, Reservation, Place, validateConnection };
