@@ -2,7 +2,7 @@
     background: $panelContentBg;
     color: $panelContentTextColor;
     box-shadow: $cardShadow;
-    border-radius: $borderRadius;
+    border-radius: calc($borderRadius * 2);
 
     .p-card-body {
         padding: $cardBodyPadding;

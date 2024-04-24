@@ -17,10 +17,10 @@ $highlightFocusBg: rgba($primaryColor, .24) !default;
 
 //* reused color variables
 $shade000: $background !default; // surface
-$shade100: scale-color($primaryColor, $lightness: 10%) !default; // header background
+$shade100: #202024 !default; // header background
 $shade200: scale-color($primaryColor, $lightness: 20%) !default; // hover background
 $shade300: #e5e7eb !default; // border, divider
-$shade400: #d1d5db !default; // input border
+$shade400: transparent !default; // input border
 $shade500: #9ca3af !default; // input icon
 $shade600: scale-color($textLight, $lightness: -10%) !default; // text secondary color
 $shade700: $textLight !default; // text color
