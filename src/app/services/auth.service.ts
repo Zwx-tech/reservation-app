@@ -43,7 +43,7 @@ export class AuthService {
           const { token, user } = response as AuthResponse;
           this.token = token;
           this.userSignal.set(user);
-          console.log(this.userSignal());
+          return user;
         },
         catchError((err) => {
           throw err as HttpResponse<SafeUser>;
@@ -81,7 +81,7 @@ export class AuthService {
         map((response) => {
           const { user } = response as AuthResponse;
           this.userSignal.set(user);
-          console.log(`Found user ${user}`);
+          console.log(`Found user ${user.email}`);
           return response;
         }),
         catchError((err) => {

@@ -1,4 +1,10 @@
-import { Component, effect, inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ReservationService } from '../../services/reservation.service';
 import { CalendarComponent } from '../../components/calendar/calendar.component';
 import { HourPickerComponent } from '../../components/hour-picker/hour-picker.component';
@@ -6,7 +12,8 @@ import { ReservationCardComponent } from '../../components/reservation-card/rese
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
-import { map } from 'rxjs';
+import { StepperModule } from 'primeng/stepper';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-reservation-list',
   standalone: true,
@@ -15,13 +22,21 @@ import { map } from 'rxjs';
     HourPickerComponent,
     ReservationCardComponent,
     ButtonModule,
+    StepperModule,
+    CommonModule,
   ],
   templateUrl: './reservation-list.component.html',
   styleUrl: './reservation-list.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ReservationListComponent {
   placeId: null | string = null;
 
+  //* STEP VIEW LIST
+  //* 0 - OFFER VIEW - here we display all offers
+  //* 1 - CALENDAR VIEW - here we display calendar and offer picker
+  //* 2 - RESERVATION VIEW - here we display reservation
+  currentFormStep = 0;
   selectedDate: Date | null = null;
   selectedHour: string | null = null;
   selectedReservation: Reservation | null = null;
@@ -70,8 +85,8 @@ export class ReservationListComponent {
     //? If user was redirected from offer page already then skip 1st step
     //? I also think about integrating ADD RESERVATION page as STEP 3 of this form
     this.placeId = this.extractParams()['place_id'];
-    if (this.placeId === null) {
-      this.router.navigate(['/offer']);
+    if (!this.placeId) {
+      // this.router.navigate(['/offer']);
     }
   }
 

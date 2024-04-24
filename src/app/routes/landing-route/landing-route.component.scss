@@ -4,28 +4,36 @@
     }
 
     header {
-        
-        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         .about__wrapper {
+            max-width: 90rem;
             margin-top: 4rem;
             display: flex;
             justify-content: space-between;
             width: 100%;
             position: relative;
-            padding: 0 2rem;
+            padding: 0 4rem;
             .description__wrapper  {
-                width: 30%;
                 font-size: 1.3rem;
                 margin-top: 2rem;
-                margin-left: 1rem;
+
                 h2 {
+                    width: 5em;
                     font-weight: 500;
-                    font-size: 2em;
                     margin-top: 1rem;
+                    .title-highlight {
+                        color: var(--accent-color)
+                    }
                 }
 
                 p {
-                    font-weight: 300;
+                    font-weight: 400;
+                    line-height: 2.5em;
+                    margin-bottom: 3em;
+                    font-family: 'Meera Inimai';
+                    padding: .1rem;
                 }
 
                 .button__wrapper {
@@ -33,38 +41,95 @@
                     gap: 1rem
                 }
             }
-
+            
             .image-gallery__wrapper {
                 position: relative;
-                width: 45%;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
+                .image-gallery {
+                    display: grid;
+                    grid-template-rows: 1fr 1fr;
+                    grid-template-columns: 1fr 1fr;
+                    padding-top: 1rem;
+                    $size: clamp(10rem, 20vw, 15rem);
+                    align-items: center;
+                    gap: calc($size * .1);
 
-                .gallery_heading {
-                    position: absolute;
-                    top: 20%;
-                    left: -30%;
-                    background-color: rgba(239, 239, 239, .7);
-                    backdrop-filter: blur(10px);
-                    padding: 1rem;
-                    width: 40em;
-
-                    h2 {
-                        font-size: 5em;
-                        margin: 0;
-
-                        color: #555;
+                    img {
+                        width: calc($size * 1.2);
+                        aspect-ratio: 1 / 1;
+                        object-fit: cover;
+                        border-radius: 1.2rem;
+                        &:first-of-type {
+                            grid-row: span 2;
+                        }
                     }
-                }
-                img {
-                    width: 100%;
-                    aspect-ratio: 4 / 3;
-                    object-fit: cover;
                 }
             }
         }
     }
+    
 
+}
 
+/* DESKTOP VIEW */
+@media screen and (min-width: 70rem) {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .about__wrapper {
+            flex: 1;
+            .description__wrapper {
+                h2 {
+                    font-size: 3.8em;
+                }
+                p {
+                    font-size: 1rem;
+                }
+            }
+        } 
+    }
+}
+    
+/* MOBILE VIEW */
+@media screen and (max-width: 70rem) {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .about__wrapper {
+            display: flex;
+            $size: 15rem;
+            flex-direction: column-reverse;
+            align-items: center;
+            width: 100vw;
+            gap: 1rem;
+            
+            .image-gallery__wrapper img {
+                width: calc($size * 1.2) !important;
+            }
+
+            .description__wrapper {
+                width: 100%;
+                h2 {
+                    font-size: 2em;
+                    margin-bottom: 1rem !important;
+                }
+
+                p {
+                    font-size: .9rem;
+                    margin: 0 !important;
+                }
+                .button__wrapper {
+                    flex-direction: column;
+                    align-items: stretch;
+                    padding-bottom: 1rem;
+                    * button {
+                        width: 100%;
+                        text-align: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
 }

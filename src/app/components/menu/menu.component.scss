@@ -1,20 +1,31 @@
+.menu__wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);   
+}
+
 nav {
-    padding: .7rem 1.5rem;
+    padding: 0rem 4rem;
     width: 100%;
+    max-width: 90rem;
     display: flex;
     align-items: center;
-    h4 a{
-        font-weight: 500;
-        font-size: 1.5rem;
-        i {
-            font-size: 1em;
+
+    h4 {
+        margin: 0;
+        a {
+            font-weight: 500;
+            font-size: 1.5rem;
+            i {
+                font-size: 1em;
+            }
         }
     }
 
     ul {
         margin-left: auto;
         align-items: center;
-        display: flex;
         list-style: none;
         gap: 1rem;
     }
@@ -22,5 +33,37 @@ nav {
 
 nav a {
     text-decoration: none;
-    color: #222;
+    &:not(.secondary) {
+        color: var(--text-color-secondary);
+    }
+}
+
+@media screen and (min-width: 70rem) {
+    ul {
+        display: flex;
+    }
+
+    .menu-button {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 70rem) {
+    nav {
+        padding: 1rem 4rem;
+    }
+    ul {
+        display: none ;
+    }
+    .menu-button {
+        margin-left: auto;
+        display: block;
+        border: none;
+        outline: none;
+        background-color: transparent;
+
+        i {
+            color: var(--primary-color)
+        }
+    }
 }

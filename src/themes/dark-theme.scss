@@ -1,0 +1,43 @@
+/* * color theme from realtime colors */
+$primaryColor: #b8beaf !default;
+$secondary: #4d4b5d !default;
+$accent: #9d859d;
+$textLight: #ecede9 !default;
+$background: #0d0e0b !default;
+
+$primaryLightColor: scale-color($primaryColor, $lightness: 30%) !default;
+$primaryDarkColor: scale-color($primaryColor, $lightness: -10%) !default;
+$primaryDarkerColor: scale-color($primaryColor, $lightness: -20%) !default;
+$primaryTextColor: $background !default;
+
+
+$highlightBg: #EFF6FF !default;
+$highlightTextColor: $primaryDarkerColor !default;
+$highlightFocusBg: rgba($primaryColor, .24) !default;
+
+//* reused color variables
+$shade000: $background !default; // surface
+$shade100: scale-color($primaryColor, $lightness: 10%) !default; // header background
+$shade200: scale-color($primaryColor, $lightness: 20%) !default; // hover background
+$shade300: #e5e7eb !default; // border, divider
+$shade400: #d1d5db !default; // input border
+$shade500: #9ca3af !default; // input icon
+$shade600: scale-color($textLight, $lightness: -10%) !default; // text secondary color
+$shade700: $textLight !default; // text color
+$shade800: #374151 !default; // unused
+$shade900: #1f2937 !default; // unused
+
+$secondaryButtonBg: $secondary !default;
+$secondaryButtonTextColor: $textLight !default;
+$secondaryButtonBorder: 1px solid $secondary !default;
+$secondaryButtonHoverBg: scale-color($secondary, $lightness: -10%) !default;
+$secondaryButtonTextHoverColor: $secondaryButtonTextColor !default;
+$secondaryButtonHoverBorderColor: scale-color($secondary, $lightness: -10%) !default;
+$secondaryButtonActiveBg: scale-color($secondary, $lightness: -20%) !default;
+$secondaryButtonTextActiveColor: $secondaryButtonTextColor !default;
+$secondaryButtonActiveBorderColor: scale-color($secondary, $lightness: -20%) !default;
+$secondaryButtonFocusShadow: 0 0 0 0.2rem $background, 0 0 0 0.4rem scale-color($secondary, $lightness: 10%) !default;
+
+@import "./variables";
+@import "./components";
+@import "./font";

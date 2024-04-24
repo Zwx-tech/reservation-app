@@ -3,40 +3,36 @@
     <app-menu></app-menu>
     <div class="about__wrapper">
       <div class="description__wrapper">
-        <h2>Safehouse</h2>
+        <h2>
+          <span class="title-highlight">Safehouse</span> Your place to get the
+          Work done
+        </h2>
         <p>
-          "At SafeHouse, we redefine productivity by curating serene
-          environments in partnership with libraries, cafes, and more, offering
-          individuals a haven for focused work or study. Our mission is to
-          provide a sanctuary where distractions fade away, enabling our patrons
-          to unleash their full potential. With a network of trusted locations,
-          we ensure access to safe and quiet spaces tailored to diverse
-          preferences."
+          Can't find a place to work in peace? <br />
+          Check out Safeplace!
         </p>
         <div class="button__wrapper">
           <p-button
-            severity="secondary"
+            severity="secondary button-full"
             class="secondary"
             (onClick)="router.navigate(['/reservation-list'])"
             >Book now!</p-button
           >
           <p-button
-            severity="secondary"
+            severity="secondary button-full"
             class="secondary"
             [outlined]="true"
             (onClick)="router.navigate(['/offer'])"
-            >Explore out offer</p-button
+            >Explore our offer</p-button
           >
         </div>
       </div>
       <div class="image-gallery__wrapper">
-        <div class="gallery_heading">
-          <h2>Your place to get the work done</h2>
+        <div class="image-gallery">
+          <img src="/assets/student.jpg" alt="Workspace 1" />
+          <img src="/assets/student2.jpg" alt="Workspace 2" />
+          <img src="/assets/student3.jpg" alt="Workspace 3" />
         </div>
-        <img src="/assets/student.jpg" alt="Workspace 1" />
-        <img src="/assets/student2.jpg" alt="Workspace 2" />
-        <img src="/assets/student3.jpg" alt="Workspace 3" />
-        <img src="/assets/student4.jpg" alt="Workspace 4" />
       </div>
     </div>
   </header>

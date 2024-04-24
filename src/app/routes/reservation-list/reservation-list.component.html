@@ -1,23 +1,40 @@
-<div class="reservation-list__wrapper">
-  <app-calendar
-    [(selected)]="selectedDate"
-    (selectedChange)="selectedDateChange($event)"
-    [reservedDates]="reservedDates"
-    class="calendar"
-  ></app-calendar>
-  <app-hour-picker
-    class="hour-picker"
-    [reservedHours]="reservedHours"
-    (selectedHourChange)="selectedHourChange($event)"
-  ></app-hour-picker>
-  <app-reservation-card
-    class="reservation-card"
-    [reservationData]="selectedReservation"
-    (bookEvent)="bookNewReservation()"
-    (onChange)="onCardChange()"
-  >
-  </app-reservation-card>
-</div>
+<p-stepper [(activeStep)]="currentFormStep">
+  <p-stepperPanel>
+    <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
+      <button class="form-header__button" (onClick)="onClick.emit()">
+        <span
+          [ngClass]="{
+            'step-active': index <= currentFormStep,
+          }"
+        >
+          <i class="pi pi-user"></i>
+        </span>
+      </button>
+    </ng-template>
+    <ng-template pTemplate="content" let-nextCallback="nextCallback">
+      <div class="reservation-list__wrapper">
+        <app-calendar
+          [(selected)]="selectedDate"
+          (selectedChange)="selectedDateChange($event)"
+          [reservedDates]="reservedDates"
+          class="calendar"
+        ></app-calendar>
+        <app-hour-picker
+          class="hour-picker"
+          [reservedHours]="reservedHours"
+          (selectedHourChange)="selectedHourChange($event)"
+        ></app-hour-picker>
+        <app-reservation-card
+          class="reservation-card"
+          [reservationData]="selectedReservation"
+          (bookEvent)="bookNewReservation()"
+          (onChange)="onCardChange()"
+        >
+        </app-reservation-card>
+      </div>
+    </ng-template>
+  </p-stepperPanel>
+</p-stepper>
 <p-button
   (onClick)="authService.logOut()"
   severity="secondary"
