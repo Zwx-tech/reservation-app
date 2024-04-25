@@ -1,5 +1,5 @@
 $secondary: #b667f4;
-$accent: #faca4d;
+$accent: var(--primary-color);
 $font-scaling: clamp(10px, 2.5vw, 16px);
 
 .calendar__wrapper {

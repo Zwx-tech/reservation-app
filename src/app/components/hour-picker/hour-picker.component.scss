@@ -22,7 +22,7 @@ $font-scaling: clamp(10px, 2.5vw, 16px);
         justify-content: center;
     }
     .reservation-visible .p-button{
-        background-color: #faca4d;
+        background-color: var(--primary-color);
     }
 }
 @media screen and (min-width: 90rem) {

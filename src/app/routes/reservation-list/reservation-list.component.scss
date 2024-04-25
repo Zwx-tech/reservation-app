@@ -19,7 +19,7 @@
 
 .p-stepper .p-stepper-panels {
     background-color: transparent;
-    padding-top: 0;
+    padding-top: 1em;
 }
 
 .p-stepper-nav {
@@ -32,7 +32,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 70vh;
     gap: 1rem;
     padding-top: 0;
 
@@ -59,7 +59,7 @@
 
 @media screen and (min-width: 90rem) {
     .hour-picker, .calendar, .reservation-card {
-        height: clamp(30rem, 90vh, 60rem);
+        height: clamp(30rem, 85vh, 60rem);
     }
 
     .reservation-card  {
