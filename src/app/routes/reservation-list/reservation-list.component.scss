@@ -17,13 +17,25 @@
     }
 }
 
+.p-stepper .p-stepper-panels {
+    background-color: transparent;
+    padding-top: 0;
+}
+
+.p-stepper-nav {
+    max-width: 20rem;
+    margin-inline: auto;
+    display: none;
+}
+
 .reservation-list__wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     gap: 1rem;
-    
+    padding-top: 0;
+
     .hour-picker {
         aspect-ratio: 5 / 12;
     }
@@ -37,6 +49,12 @@
     position: fixed;
     top: .5rem;
     right: .5rem;
+}
+
+.back-button {
+    position: fixed;
+    top: .5rem;
+    left: .5rem;
 }
 
 @media screen and (min-width: 90rem) {
@@ -74,5 +92,41 @@
             min-height: 10rem;
         }
 
+    }
+}
+
+
+.offer-list__wrapper {
+    position: relative;
+    padding: 1rem 4rem;
+    max-width: 90rem;
+    margin-inline: auto;
+    h2 {
+        font-weight: 500;
+        font-size: 2.8rem;
+    }
+
+    .offer-row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 1rem;
+        .offer-card {
+            display: block;
+            width: clamp(18rem, 24vw, 23rem);
+        }
+    }
+}
+
+@media screen and (max-width: 50rem) {
+    .offer-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem !important;
+            
+        .offer-card {
+            display: block;
+            width: clamp(18rem, 70vw, 23rem) !important;
+        }
     }
 }

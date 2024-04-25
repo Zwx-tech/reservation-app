@@ -1,5 +1,5 @@
 @if(offerData !== null) {
-<a class="offer-link" href="/reservation-list?place_id={{ offerData.id }}">
+<div class="offer-link" (click)="handleCardClick()">
   <div class="offer-card">
     <div class="offer-img_wrapper">
       <img src="{{ offerData.img_url }}" alt="{{ offerData.name }}" />
@@ -8,7 +8,7 @@
       <div class="row">
         <h2>{{ offerData.name }}</h2>
         <div class="rating">
-          <i class="pi pi-star-fill" style="color: #fe4f23"></i>
+          <i class="pi pi-star-fill"></i>
           {{ offerData.rating }}
         </div>
       </div>
@@ -27,5 +27,5 @@
       </div>
     </div>
   </div>
-</a>
+</div>
 }

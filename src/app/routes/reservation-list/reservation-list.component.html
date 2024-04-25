@@ -1,4 +1,36 @@
+<app-menu></app-menu>
 <p-stepper [(activeStep)]="currentFormStep">
+  <p-stepperPanel>
+    <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
+      <button class="form-header__button" (onClick)="onClick.emit()">
+        <span
+          [ngClass]="{
+            'step-active': index <= currentFormStep,
+          }"
+        >
+          <i class="pi pi-home"></i>
+        </span>
+      </button>
+    </ng-template>
+    <ng-template pTemplate="content" let-nextCallback="nextCallback">
+      <div class="offer-list__wrapper">
+        <div class="offer-row">
+          @for(place of placeList; track place.id) {
+          <app-offer-card
+            [offerData]="place"
+            cardType="button"
+            (onClick)="placeClicked($event)"
+          ></app-offer-card>
+          } @empty {
+          <p>
+            There are no offers right now, check your network connection and try
+            again
+          </p>
+          }
+        </div>
+      </div>
+    </ng-template>
+  </p-stepperPanel>
   <p-stepperPanel>
     <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
       <button class="form-header__button" (onClick)="onClick.emit()">
@@ -36,9 +68,9 @@
   </p-stepperPanel>
 </p-stepper>
 <p-button
-  (onClick)="authService.logOut()"
+  (onClick)="handleBackButtonClick()"
   severity="secondary"
-  class="secondary logout-button"
+  class="secondary back-button"
 >
-  Logout
+  Back
 </p-button>

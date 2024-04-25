@@ -14,6 +14,10 @@ import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../services/auth.service';
 import { StepperModule } from 'primeng/stepper';
 import { CommonModule } from '@angular/common';
+import { PlaceListComponent } from '../../components/place-list/place-list.component';
+import { PlaceService } from '../../services/place.service';
+import { OfferCardComponent } from '../../components/offer-card/offer-card.component';
+import { MenuComponent } from '../../components/menu/menu.component';
 @Component({
   selector: 'app-reservation-list',
   standalone: true,
@@ -24,12 +28,16 @@ import { CommonModule } from '@angular/common';
     ButtonModule,
     StepperModule,
     CommonModule,
+    PlaceListComponent,
+    OfferCardComponent,
+    MenuComponent,
   ],
   templateUrl: './reservation-list.component.html',
   styleUrl: './reservation-list.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class ReservationListComponent {
+  placeList: Place[] = [];
   placeId: null | string = null;
 
   //* STEP VIEW LIST
@@ -52,11 +60,12 @@ export class ReservationListComponent {
   allReservations: Reservation[] = [];
 
   reservationService = inject(ReservationService);
+  placeService = inject(PlaceService);
   authService = inject(AuthService);
   router = inject(Router);
 
   extractParams(): Record<string, string> {
-    const paramsString = this.router.url.split('?')[1]; // Get the part of URL containing parameters
+    const paramsString = this.router.url.split(';')[1]; // Get the part of URL containing parameters
     const params: Record<string, string> = {}; // Initialize an empty object to store parameters
 
     if (paramsString) {
@@ -71,6 +80,11 @@ export class ReservationListComponent {
   }
 
   constructor() {
+    // fetch all places
+    this.placeService.getPlaceList().subscribe((places) => {
+      this.placeList = places;
+    });
+
     effect(() => {
       if (this.authService.userSignal() === null) {
         this.router.navigate(['/login']);
@@ -85,8 +99,13 @@ export class ReservationListComponent {
     //? If user was redirected from offer page already then skip 1st step
     //? I also think about integrating ADD RESERVATION page as STEP 3 of this form
     this.placeId = this.extractParams()['place_id'];
-    if (!this.placeId) {
-      // this.router.navigate(['/offer']);
+    console.log('PLACE ID');
+    console.log(this.placeId);
+    console.log(this.extractParams());
+    if (this.placeId) {
+      this.currentFormStep++;
+      const today = new Date();
+      this.refreshReservations(today.getMonth(), today.getFullYear());
     }
   }
 
@@ -191,5 +210,20 @@ export class ReservationListComponent {
         place_id: this.placeId,
       },
     ]);
+  }
+
+  placeClicked(placeId: number) {
+    //* Set current place
+    this.placeId = `${placeId}`;
+    this.currentFormStep++;
+
+    //* fetch reservations for corresponding date
+    const today = new Date();
+    this.refreshReservations(today.getMonth(), today.getFullYear());
+  }
+
+  handleBackButtonClick() {
+    this.placeId = null;
+    this.currentFormStep = Math.max(0, this.currentFormStep - 1);
   }
 }

@@ -1,7 +1,7 @@
 .offer-link{
     text-decoration: none;
-    color: #222;
     display: block;
+    color: var(--secondary-light-color);
 }
 
 .offer-card {
@@ -13,6 +13,7 @@
     // border: 1px solid rgba(0, 0, 0, 0.05);
     transition: .2s ease;
     transition-property: box-shadow;
+    background-color: var(--surface-b);
 
     
     &:hover {
@@ -59,7 +60,8 @@
         h2 {
             margin: 0;
             font-size: 1.1rem;
-            font-weight: 400;
+            font-weight: 500;
+            color: var(--accent-darker-color);
         }
 
         .row{
@@ -70,6 +72,7 @@
                 display: flex;
                 gap: .5rem;
                 font-weight: 500;
+                color: var(--primary-color);
             }
         }
         
@@ -80,6 +83,7 @@
             justify-content: flex-start;
             .p-element .p-chip {
                 font-size: .9rem;
+                background-color: var(--secondary-color);
             }
         }
 

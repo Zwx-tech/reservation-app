@@ -52,7 +52,7 @@ $scaleSM: 0.875 !default;
 $scaleLG: 1.25 !default;
 
 //focus
-$focusOutlineColor: $primaryLightColor !default;
+$focusOutlineColor: $primaryDarkColor !default;
 $focusOutline: 0 none !default;
 $focusOutlineOffset: 0 !default;
 $inputFocusOutlineOffset:$focusOutlineOffset !default;
@@ -850,7 +850,9 @@ $imagePreviewActionIconBorderRadius: 50% !default;
     --text-color-secondary: #{$shade600};
     --primary-color: #{$primaryColor};
     --secondary-color: #{$secondary};
+    --secondary-light-color: #{$secondaryLightColor};
     --accent-color: #{$accent};
+    --accent-darker-color: #{$accentDarkerColor};
     --primary-color-text: #{$primaryTextColor};
     --surface-0: #ffffff;
     --surface-50: #f9fafb;

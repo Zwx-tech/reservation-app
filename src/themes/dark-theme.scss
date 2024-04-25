@@ -10,6 +10,9 @@ $primaryDarkColor: scale-color($primaryColor, $lightness: -10%) !default;
 $primaryDarkerColor: scale-color($primaryColor, $lightness: -20%) !default;
 $primaryTextColor: $background !default;
 
+$secondaryLightColor: scale-color($secondary, $lightness: 30%) !default;
+
+$accentDarkerColor: scale-color($secondary, $lightness: 30%) !default;
 
 $highlightBg: #EFF6FF !default;
 $highlightTextColor: $primaryDarkerColor !default;

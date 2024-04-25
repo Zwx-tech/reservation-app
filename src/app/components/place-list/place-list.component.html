@@ -19,7 +19,7 @@
   ></p-button>
   } }
   <!--* DISPLAY OFFER(PLACES)-->
-  <h2>Recent offers</h2>
+  <h2>{{ listTitle }}</h2>
   <div class="offer-row">
     @for(place of placeList; track place.id) {
     <app-offer-card [offerData]="place"></app-offer-card>

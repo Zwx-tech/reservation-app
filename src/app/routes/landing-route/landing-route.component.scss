@@ -49,12 +49,11 @@
                     grid-template-rows: 1fr 1fr;
                     grid-template-columns: 1fr 1fr;
                     padding-top: 1rem;
-                    $size: clamp(10rem, 20vw, 15rem);
+                    // $size: clamp(10rem, 20vw, 15rem);
                     align-items: center;
-                    gap: calc($size * .1);
 
                     img {
-                        width: calc($size * 1.2);
+                        // width: calc($size * 1.2);
                         aspect-ratio: 1 / 1;
                         object-fit: cover;
                         border-radius: 1.2rem;
@@ -72,26 +71,54 @@
 
 /* DESKTOP VIEW */
 @media screen and (min-width: 70rem) {
-    header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .about__wrapper {
-            flex: 1;
-            .description__wrapper {
-                h2 {
-                    font-size: 3.8em;
-                }
-                p {
-                    font-size: 1rem;
-                }
+    .about__wrapper {
+        $size: clamp(10rem, 20vw, 15rem);
+        
+        .image-gallery__wrapper .image-gallery {
+            gap: calc($size * .1);
+            img {
+                width: calc($size * 1.2);
             }
-        } 
+        }
     }
 }
-    
+
+@media screen and (max-width: 70rem) and (min-width: 40rem) {
+    .about__wrapper {
+        display: flex;
+        $size: 10rem;
+        flex-direction: column-reverse;
+        align-items: center;
+        width: 100vw;
+        gap: 1rem;
+        
+        .image-gallery__wrapper .image-gallery {
+            gap: calc($size * .1);
+            img {
+                width: calc($size * 1.2);
+            }
+        }
+    }
+}  
+
 /* MOBILE VIEW */
-@media screen and (max-width: 70rem) {
+
+@media screen and (max-width: 60rem) {
+    .about__wrapper {
+        display: flex;
+        $size: 10rem;
+        flex-direction: column-reverse;
+        align-items: center;
+        width: 100vw;
+        gap: 1rem;
+        
+        .image-gallery__wrapper img {
+            width: calc($size) !important;
+        }
+    }
+}  
+
+@media screen and (max-width: 40rem) {
     header {
         display: flex;
         flex-direction: column;
@@ -104,8 +131,11 @@
             width: 100vw;
             gap: 1rem;
             
-            .image-gallery__wrapper img {
-                width: calc($size * 1.2) !important;
+            .image-gallery__wrapper .image-gallery {
+                gap: calc($size * .1);
+                img {
+                    width: calc($size * 1.2);
+                }
             }
 
             .description__wrapper {

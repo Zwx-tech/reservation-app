@@ -1,4 +1,10 @@
-import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  Input,
+  ViewEncapsulation,
+} from '@angular/core';
 import { PlaceService } from '../../services/place.service';
 import { AuthService } from '../../services/auth.service';
 import { AddPlaceFormComponent } from '../add-place-form/add-place-form.component';
@@ -25,6 +31,17 @@ export class PlaceListComponent {
   authService = inject(AuthService);
   placeFormVisible = false;
   placeList: Place[] = [];
+
+  _listTitle: string | null = null;
+
+  @Input()
+  set listTitle(value: string) {
+    this._listTitle = value || 'Recent offers';
+  }
+
+  get listTitle() {
+    return this._listTitle || 'Recent offers';
+  }
 
   constructor() {
     this.placeService.getPlaceList().subscribe((places) => {

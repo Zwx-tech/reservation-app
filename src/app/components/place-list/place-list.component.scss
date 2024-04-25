@@ -1,8 +1,11 @@
 .place-list__wrapper {
     position: relative;
-    padding: 1rem 5rem;
+    padding: 1rem 4rem;
+    max-width: 90rem;
+    margin-inline: auto;
     h2 {
         font-weight: 500;
+        font-size: 2.8rem;
     }
 
     .add-place-button{
@@ -14,16 +17,20 @@
 
     .offer-row {
         display: flex;
+        flex-wrap: wrap;
+        width: 100%;
         gap: 1rem;
         .offer-card {
             display: block;
-            width: 23rem;
+            width: clamp(18rem, 24vw, 23rem);
         }
     }
 }
 
 .place-list__wrapper .p-dialog-content {
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .place-list__wrapper .dialog {
@@ -34,5 +41,16 @@
     .place-list__wrapper .p-dialog-content {
         justify-content: center;
         padding: 0;
+    }
+
+    .offer-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem !important;
+            
+        .offer-card {
+            display: block;
+            width: clamp(18rem, 70vw, 23rem) !important;
+        }
     }
 }
